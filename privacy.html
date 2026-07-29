@@ -18,18 +18,21 @@
     <style>
       :root {
         --teal: #0c7c8f;
+        --teal-1: #0fa0af;
+        --teal-2: #075e6e;
         --teal-grad: linear-gradient(135deg, #0fa0af, #075e6e);
         --gold: #c0801c;
+        --gold-grad: linear-gradient(135deg, #e0a63c, #c07d18);
         --cream: #f5f1e9;
         --card: #ffffff;
         --ink: #1b1712;
         --muted: #5c544a;
         --hairline: rgba(27, 23, 18, 0.08);
         --shadow: 0 18px 40px -20px rgba(7, 94, 110, 0.35);
+        --shadow-lg: 0 40px 90px -30px rgba(7, 94, 110, 0.45);
       }
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
         margin: 0;
         font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -37,171 +40,151 @@
         color: var(--ink);
         line-height: 1.65;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
       }
-      a {
-        color: var(--teal);
+      a { color: var(--teal); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+      /* Scroll progress bar */
+      .progress {
+        position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+        background: var(--gold-grad); z-index: 60; transition: width 0.1s linear;
+        box-shadow: 0 0 12px rgba(224, 166, 60, 0.6);
       }
-      .wrap {
-        width: 100%;
-        max-width: 1080px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
+
+      /* Header */
       .site-header {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        background: rgba(245, 241, 233, 0.85);
-        backdrop-filter: saturate(160%) blur(12px);
-        border-bottom: 1px solid var(--hairline);
+        position: sticky; top: 0; z-index: 40;
+        background: rgba(245, 241, 233, 0.72);
+        backdrop-filter: saturate(160%) blur(14px);
+        -webkit-backdrop-filter: saturate(160%) blur(14px);
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s, background 0.3s;
       }
-      .site-header .wrap {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        min-height: 68px;
-        gap: 16px;
-      }
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 800;
-        font-size: 1.25rem;
-        letter-spacing: -0.02em;
-        color: var(--ink);
-        text-decoration: none;
-      }
+      .site-header.scrolled { border-bottom-color: var(--hairline); background: rgba(245, 241, 233, 0.9); }
+      .site-header .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 68px; gap: 16px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; color: var(--ink); }
+      .brand:hover { text-decoration: none; }
       .brand .logo {
-        display: grid;
-        place-items: center;
-        width: 38px;
-        height: 38px;
-        border-radius: 12px;
-        background: var(--teal-grad);
-        box-shadow: var(--shadow);
+        display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px;
+        background: var(--teal-grad); box-shadow: var(--shadow); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
       }
-      .nav {
-        display: flex;
-        gap: 22px;
-        font-size: 0.98rem;
-      }
+      .brand:hover .logo { transform: rotate(-8deg) scale(1.08); }
+      .nav { display: flex; gap: 6px; align-items: center; font-size: 0.98rem; }
       .nav a {
-        color: var(--muted);
-        font-weight: 600;
-        text-decoration: none;
+        color: var(--muted); font-weight: 600; padding: 8px 14px; border-radius: 999px;
+        position: relative; transition: color 0.2s, background 0.2s;
       }
-      .nav a:hover {
-        color: var(--teal);
-      }
-      @media (max-width: 640px) {
-        .nav {
-          gap: 14px;
-          font-size: 0.85rem;
-        }
-      }
+      .nav a:hover { color: var(--teal); text-decoration: none; background: rgba(15,160,175,0.09); }
+      .nav .nav-cta { color: #fff; background: var(--teal-grad); box-shadow: var(--shadow); }
+      .nav .nav-cta:hover { color: #fff; filter: brightness(1.06); transform: translateY(-1px); }
+      @media (max-width: 640px) { .nav a:not(.nav-cta) { display: none; } }
 
-      .page-hero {
-        background: var(--teal-grad);
-        color: #fff;
-        border-radius: 0 0 28px 28px;
+      /* Hero (aurora) */
+      .hero { position: relative; overflow: hidden; padding: 60px 0 52px; }
+      .hero-bg { position: absolute; inset: -20% -10% auto -10%; height: 170%; z-index: 0; pointer-events: none; filter: blur(8px); }
+      .blob { position: absolute; border-radius: 50%; opacity: 0.5; mix-blend-mode: multiply; animation: drift 18s ease-in-out infinite; }
+      .blob.b1 { width: 460px; height: 460px; left: -80px; top: -60px; background: radial-gradient(circle at 30% 30%, #7fded0, transparent 68%); }
+      .blob.b2 { width: 420px; height: 420px; right: -60px; top: 20px; background: radial-gradient(circle at 60% 40%, #ffd58a, transparent 66%); animation-delay: -6s; }
+      .blob.b3 { width: 360px; height: 360px; left: 40%; top: 120px; background: radial-gradient(circle at 50% 50%, #9fe0e8, transparent 70%); animation-delay: -11s; }
+      @keyframes drift {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(40px, -30px) scale(1.08); }
+        66% { transform: translate(-30px, 24px) scale(0.96); }
       }
-      .page-hero .wrap {
-        padding: 54px 20px 44px;
+      .hero .wrap { position: relative; z-index: 1; }
+      .hero-panel {
+        position: relative; overflow: hidden; border-radius: 30px;
+        background: var(--teal-grad); color: #fff;
+        box-shadow: var(--shadow-lg); padding: clamp(34px, 6vw, 60px) clamp(24px, 5vw, 56px);
       }
-      .page-hero h1 {
-        margin: 0 0 8px;
-        font-size: clamp(2rem, 5vw, 2.9rem);
-        letter-spacing: -0.02em;
-        font-weight: 800;
+      .hero-panel::after {
+        content: ""; position: absolute; inset: 0;
+        background: radial-gradient(80% 90% at 88% -10%, rgba(255,255,255,0.22), transparent 60%);
+        pointer-events: none;
       }
-      .page-hero p {
-        margin: 0;
-        color: rgba(255, 255, 255, 0.9);
+      .hero-panel > * { position: relative; z-index: 1; }
+      .eyebrow {
+        display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px;
+        padding: 7px 14px 7px 8px; border-radius: 999px;
+        background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3);
+        backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+        font-size: 0.8rem; font-weight: 700; letter-spacing: 0.02em; color: #fff;
       }
+      .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: #7fffcf; box-shadow: 0 0 0 0 rgba(127,255,207,0.6); animation: pulse 2.2s infinite; }
+      @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(127,255,207,0.55); } 70% { box-shadow: 0 0 0 9px rgba(127,255,207,0); } 100% { box-shadow: 0 0 0 0 rgba(127,255,207,0); } }
+      .hero-panel h1 {
+        margin: 0 0 14px; font-size: clamp(2.2rem, 5.4vw, 3.4rem);
+        line-height: 1.04; letter-spacing: -0.03em; font-weight: 850; max-width: 16ch;
+      }
+      .hero-panel .lede { margin: 0; font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: rgba(255,255,255,0.92); max-width: 54ch; }
 
-      .doc {
-        margin: 40px auto 64px;
-        max-width: 780px;
-        background: var(--card);
-        border: 1px solid var(--hairline);
-        border-radius: 24px;
-        box-shadow: var(--shadow);
-        padding: 40px clamp(22px, 5vw, 48px);
+      /* Document */
+      .doc-section { padding: 46px 0 84px; }
+      .doc { margin: 0 auto; max-width: 760px; }
+      .updated {
+        display: inline-flex; align-items: center; gap: 8px; margin-bottom: 26px;
+        padding: 7px 14px; border-radius: 999px; background: #fff;
+        border: 1px solid var(--hairline); box-shadow: var(--shadow);
+        font-size: 0.82rem; font-weight: 700; color: var(--muted); letter-spacing: 0.01em;
       }
-      .doc h2 {
-        color: var(--teal);
-        margin: 34px 0 10px;
-        font-size: 1.35rem;
-        letter-spacing: -0.01em;
-      }
-      .doc h2:first-of-type {
-        margin-top: 8px;
-      }
-      .doc p,
-      .doc li {
-        color: var(--ink);
-      }
-      .doc ul {
-        padding-left: 20px;
-      }
-      .doc li {
-        margin-bottom: 8px;
-      }
-      .muted {
-        color: var(--muted);
-        font-size: 0.92rem;
-      }
+      .updated .pill { padding: 2px 9px; border-radius: 999px; background: var(--gold-grad); color: #fff; font-size: 0.66rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
 
-      .site-footer {
-        border-top: 1px solid var(--hairline);
-        background: #efe8db;
+      .card {
+        position: relative; background: var(--card); border-radius: 24px;
+        padding: 30px clamp(22px, 4vw, 38px); margin-bottom: 20px;
+        box-shadow: var(--shadow); border: 1px solid var(--hairline); overflow: hidden;
       }
-      .site-footer .wrap {
-        padding: 44px 20px;
-        display: grid;
-        gap: 20px;
+      .card h2 {
+        margin: 0 0 12px; font-size: 1.3rem; letter-spacing: -0.015em; font-weight: 800;
+        display: flex; align-items: center; gap: 12px; color: var(--ink);
       }
-      .footer-top {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 20px;
-        align-items: flex-start;
+      .card h2 .badge {
+        display: grid; place-items: center; width: 34px; height: 34px; flex: none;
+        border-radius: 11px; background: rgba(15,160,175,0.12); color: var(--teal);
+        font-weight: 850; font-size: 0.95rem;
       }
-      .footer-tag {
-        color: var(--muted);
-        margin: 6px 0 0;
-        max-width: 30ch;
+      .card p, .card li { color: var(--ink); font-size: 1rem; }
+      .card p { margin: 0 0 4px; }
+      .card ul { padding-left: 4px; margin: 4px 0 0; list-style: none; }
+      .card li { position: relative; padding-left: 26px; margin-bottom: 12px; }
+      .card li::before {
+        content: ""; position: absolute; left: 4px; top: 0.62em;
+        width: 8px; height: 8px; border-radius: 50%;
+        background: var(--gold-grad); box-shadow: 0 0 0 3px rgba(192,128,28,0.12);
       }
-      .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 18px;
-        font-weight: 600;
-        font-size: 0.95rem;
-      }
-      .footer-links a {
-        color: var(--muted);
-        text-decoration: none;
-      }
-      .footer-links a:hover {
-        color: var(--teal);
-      }
-      .footer-bottom {
-        border-top: 1px solid var(--hairline);
-        padding-top: 18px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 10px;
-        color: var(--muted);
-        font-size: 0.9rem;
+      .card li:last-child { margin-bottom: 0; }
+
+      /* Reveal on scroll */
+      .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+      .reveal.in { opacity: 1; transform: none; }
+      .reveal[data-d="1"] { transition-delay: 0.08s; }
+      .reveal[data-d="2"] { transition-delay: 0.16s; }
+      .reveal[data-d="3"] { transition-delay: 0.24s; }
+      .reveal[data-d="4"] { transition-delay: 0.32s; }
+      .reveal[data-d="5"] { transition-delay: 0.4s; }
+
+      /* Footer */
+      .site-footer { border-top: 1px solid var(--hairline); background: #efe8db; }
+      .site-footer .wrap { padding: 48px 20px; display: grid; gap: 22px; }
+      .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; align-items: flex-start; }
+      .footer-tag { color: var(--muted); margin: 8px 0 0; max-width: 30ch; }
+      .footer-links { display: flex; flex-wrap: wrap; gap: 18px; font-weight: 600; font-size: 0.95rem; }
+      .footer-links a { color: var(--muted); }
+      .footer-links a:hover { color: var(--teal); text-decoration: none; }
+      .footer-bottom { border-top: 1px solid var(--hairline); padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 0.9rem; }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+        .reveal { opacity: 1 !important; transform: none !important; }
       }
     </style>
   </head>
   <body>
-    <header class="site-header">
+    <div class="progress" id="progress"></div>
+
+    <header class="site-header" id="header">
       <div class="wrap">
         <a class="brand" href="index.html" aria-label="Dewllio home">
           <span class="logo" aria-hidden="true">
@@ -213,82 +196,109 @@
         </a>
         <nav class="nav" aria-label="Primary">
           <a href="index.html#features">Features</a>
+          <a href="index.html#how">How it works</a>
           <a href="privacy.html">Privacy</a>
-          <a href="terms.html">Terms</a>
           <a href="support.html">Support</a>
+          <a class="nav-cta" href="index.html#get">Get notified</a>
         </nav>
       </div>
     </header>
 
     <main>
-      <div class="page-hero">
-        <div class="wrap">
-          <h1>Privacy Policy</h1>
-          <p>Your records are yours. Here is exactly what we collect and why.</p>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-bg" aria-hidden="true">
+          <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
         </div>
-      </div>
+        <div class="wrap">
+          <div class="hero-panel reveal">
+            <span class="eyebrow"><span class="dot"></span> Private by design</span>
+            <h1>Privacy Policy</h1>
+            <p class="lede">Your records are yours. Here is exactly what we collect and why.</p>
+          </div>
+        </div>
+      </section>
 
-      <article class="doc">
-        <p class="muted">Last updated: July 30, 2026</p>
+      <!-- DOCUMENT -->
+      <section class="doc-section">
+        <div class="wrap">
+          <article class="doc">
+            <div class="reveal">
+              <span class="updated"><span class="pill">Updated</span> Last updated: July 30, 2026</span>
+            </div>
 
-        <h2>What we collect</h2>
-        <ul>
-          <li>
-            <strong>Account data:</strong> your email address (handled by our authentication
-            provider, Supabase).
-          </li>
-          <li>
-            <strong>Your content:</strong> the homes, inventory items, photos, receipts, warranty
-            documents, notes, and maintenance tasks you add. This is private to your account.
-          </li>
-          <li>
-            <strong>Device &amp; diagnostics:</strong> app version, platform, and crash reports (via
-            Sentry) with personal content scrubbed.
-          </li>
-          <li>
-            <strong>Product analytics:</strong> non-identifying usage events (via PostHog). We never
-            send item names, serial numbers, notes, filenames, addresses, or your email to
-            analytics.
-          </li>
-          <li>
-            <strong>Subscriptions:</strong> purchase status via RevenueCat and the app stores.
-          </li>
-        </ul>
+            <section class="card reveal" data-d="1">
+              <h2><span class="badge" aria-hidden="true">1</span> What we collect</h2>
+              <ul>
+                <li>
+                  <strong>Account data:</strong> your email address (handled by our authentication
+                  provider, Supabase).
+                </li>
+                <li>
+                  <strong>Your content:</strong> the homes, inventory items, photos, receipts, warranty
+                  documents, notes, and maintenance tasks you add. This is private to your account.
+                </li>
+                <li>
+                  <strong>Device &amp; diagnostics:</strong> app version, platform, and crash reports (via
+                  Sentry) with personal content scrubbed.
+                </li>
+                <li>
+                  <strong>Product analytics:</strong> non-identifying usage events (via PostHog). We never
+                  send item names, serial numbers, notes, filenames, addresses, or your email to
+                  analytics.
+                </li>
+                <li>
+                  <strong>Subscriptions:</strong> purchase status via RevenueCat and the app stores.
+                </li>
+              </ul>
+            </section>
 
-        <h2>How we use it</h2>
-        <p>
-          To provide the app's features, keep your records secure and backed up, process
-          subscriptions, diagnose crashes, and improve the product. We do not sell your data or use
-          it for advertising.
-        </p>
+            <section class="card reveal" data-d="2">
+              <h2><span class="badge" aria-hidden="true">2</span> How we use it</h2>
+              <p>
+                To provide the app's features, keep your records secure and backed up, process
+                subscriptions, diagnose crashes, and improve the product. We do not sell your data or use
+                it for advertising.
+              </p>
+            </section>
 
-        <h2>Storage &amp; providers</h2>
-        <p>
-          Data is stored with Supabase (database + private file storage). Analytics: PostHog. Crash
-          reporting: Sentry. Subscriptions: RevenueCat and the Apple App Store / Google Play.
-        </p>
+            <section class="card reveal" data-d="3">
+              <h2><span class="badge" aria-hidden="true">3</span> Storage &amp; providers</h2>
+              <p>
+                Data is stored with Supabase (database + private file storage). Analytics: PostHog. Crash
+                reporting: Sentry. Subscriptions: RevenueCat and the Apple App Store / Google Play.
+              </p>
+            </section>
 
-        <h2>Data retention &amp; deletion</h2>
-        <p>
-          Your content is retained until you delete it or delete your account. You can permanently
-          delete your account and all associated data in <strong>Settings → Delete account</strong>,
-          or via our <a href="delete-account.html">account deletion page</a>.
-        </p>
+            <section class="card reveal" data-d="1">
+              <h2><span class="badge" aria-hidden="true">4</span> Data retention &amp; deletion</h2>
+              <p>
+                Your content is retained until you delete it or delete your account. You can permanently
+                delete your account and all associated data in <strong>Settings → Delete account</strong>,
+                or via our <a href="delete-account.html">account deletion page</a>.
+              </p>
+            </section>
 
-        <h2>Your rights &amp; contact</h2>
-        <p>
-          You may access, export, correct, or delete your data. Export is available in the app
-          (Settings → Export data). Contact us at
-          <strong><a href="mailto:support@dewllio.com">support@dewllio.com</a></strong>.
-        </p>
+            <section class="card reveal" data-d="2">
+              <h2><span class="badge" aria-hidden="true">5</span> Your rights &amp; contact</h2>
+              <p>
+                You may access, export, correct, or delete your data. Export is available in the app
+                (Settings → Export data). Contact us at
+                <strong><a href="mailto:support@dewllio.com">support@dewllio.com</a></strong>.
+              </p>
+            </section>
 
-        <h2>Security</h2>
-        <p>
-          We protect your data with per-account access controls (Row-Level Security), private
-          storage with short-lived signed links, and encrypted transport. We do not claim end-to-end
-          encryption.
-        </p>
-      </article>
+            <section class="card reveal" data-d="3">
+              <h2><span class="badge" aria-hidden="true">6</span> Security</h2>
+              <p>
+                We protect your data with per-account access controls (Row-Level Security), private
+                storage with short-lived signed links, and encrypted transport. We do not claim end-to-end
+                encryption.
+              </p>
+            </section>
+          </article>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -296,11 +306,7 @@
         <div class="footer-top">
           <div>
             <a class="brand" href="index.html" aria-label="Dewllio home">
-              <span class="logo" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" role="img">
-                  <path d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#fff" />
-                </svg>
-              </span>
+              <span class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" role="img"><path d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#fff"/></svg></span>
               Dewllio
             </a>
             <p class="footer-tag">Know what you own.</p>
@@ -319,5 +325,33 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      // Scroll progress + header shadow
+      var header = document.getElementById('header');
+      var progress = document.getElementById('progress');
+      function onScroll() {
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        progress.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+        header.classList.toggle('scrolled', h.scrollTop > 8);
+      }
+      document.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Reveal on scroll
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var reveals = [].slice.call(document.querySelectorAll('.reveal'));
+      if (reduce || !('IntersectionObserver' in window)) {
+        reveals.forEach(function (el) { el.classList.add('in'); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.15 });
+        reveals.forEach(function (el) { io.observe(el); });
+      }
+    </script>
   </body>
 </html>
