@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dewllio — Delete your account</title>
+    <meta
+      name="description"
+      content="How to permanently delete your Dewllio account and all associated data, in-app or by request."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Dewllio — Delete your account" />
+    <meta
+      property="og:description"
+      content="How to permanently delete your Dewllio account and all associated data, in-app or by request."
+    />
+    <meta name="theme-color" content="#0C7C8F" />
+    <style>
+      :root {
+        --teal: #0c7c8f;
+        --teal-grad: linear-gradient(135deg, #0fa0af, #075e6e);
+        --gold: #c0801c;
+        --cream: #f5f1e9;
+        --card: #ffffff;
+        --ink: #1b1712;
+        --muted: #5c544a;
+        --hairline: rgba(27, 23, 18, 0.08);
+        --shadow: 0 18px 40px -20px rgba(7, 94, 110, 0.35);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: var(--cream);
+        color: var(--ink);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: var(--teal);
+      }
+      .wrap {
+        width: 100%;
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(245, 241, 233, 0.85);
+        backdrop-filter: saturate(160%) blur(12px);
+        border-bottom: 1px solid var(--hairline);
+      }
+      .site-header .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 68px;
+        gap: 16px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 1.25rem;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .brand .logo {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: var(--teal-grad);
+        box-shadow: var(--shadow);
+      }
+      .nav {
+        display: flex;
+        gap: 22px;
+        font-size: 0.98rem;
+      }
+      .nav a {
+        color: var(--muted);
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .nav a:hover {
+        color: var(--teal);
+      }
+      @media (max-width: 640px) {
+        .nav {
+          gap: 14px;
+          font-size: 0.85rem;
+        }
+      }
+
+      .page-hero {
+        background: var(--teal-grad);
+        color: #fff;
+        border-radius: 0 0 28px 28px;
+      }
+      .page-hero .wrap {
+        padding: 54px 20px 44px;
+      }
+      .page-hero h1 {
+        margin: 0 0 8px;
+        font-size: clamp(2rem, 5vw, 2.9rem);
+        letter-spacing: -0.02em;
+        font-weight: 800;
+      }
+      .page-hero p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .doc {
+        margin: 40px auto 64px;
+        max-width: 780px;
+        background: var(--card);
+        border: 1px solid var(--hairline);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        padding: 40px clamp(22px, 5vw, 48px);
+      }
+      .doc h2 {
+        color: var(--teal);
+        margin: 34px 0 10px;
+        font-size: 1.35rem;
+        letter-spacing: -0.01em;
+      }
+      .doc p,
+      .doc li {
+        color: var(--ink);
+      }
+      .steps {
+        list-style: none;
+        counter-reset: step;
+        padding: 0;
+        margin: 20px 0 8px;
+        display: grid;
+        gap: 12px;
+      }
+      .steps li {
+        counter-increment: step;
+        position: relative;
+        padding: 16px 18px 16px 60px;
+        background: var(--cream);
+        border: 1px solid var(--hairline);
+        border-radius: 16px;
+      }
+      .steps li::before {
+        content: counter(step);
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: var(--teal-grad);
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+      code {
+        background: rgba(15, 160, 175, 0.12);
+        color: var(--teal);
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-weight: 700;
+      }
+      .callout {
+        margin: 24px 0 0;
+        padding: 18px 20px;
+        border-left: 4px solid var(--gold);
+        background: rgba(192, 128, 28, 0.08);
+        border-radius: 0 14px 14px 0;
+      }
+      .callout strong {
+        color: var(--ink);
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--hairline);
+        background: #efe8db;
+      }
+      .site-footer .wrap {
+        padding: 44px 20px;
+        display: grid;
+        gap: 20px;
+      }
+      .footer-top {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .footer-tag {
+        color: var(--muted);
+        margin: 6px 0 0;
+        max-width: 30ch;
+      }
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+      .footer-links a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .footer-links a:hover {
+        color: var(--teal);
+      }
+      .footer-bottom {
+        border-top: 1px solid var(--hairline);
+        padding-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="index.html" aria-label="Dewllio home">
+          <span class="logo" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" role="img">
+              <path d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#fff" />
+            </svg>
+          </span>
+          Dewllio
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="index.html#features">Features</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="support.html">Support</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-hero">
+        <div class="wrap">
+          <h1>Delete your account</h1>
+          <p>Permanently remove your Dewllio account and all associated data.</p>
+        </div>
+      </div>
+
+      <article class="doc">
+        <p>
+          You can permanently delete your Dewllio account and all associated data at any time,
+          directly in the app:
+        </p>
+        <ol class="steps">
+          <li>Open <strong>Dewllio</strong> and sign in.</li>
+          <li>Go to <strong>Settings → Delete account</strong>.</li>
+          <li>Type <code>DELETE</code> to confirm.</li>
+        </ol>
+
+        <p>
+          Deletion is immediate and irreversible. We permanently remove your account and all of the
+          following: homes, inventory items, item photos, receipts and warranty documents,
+          maintenance tasks and completion history, reminder schedules, device records, and your
+          authentication account. Subscription records held by Apple or Google are governed by their
+          respective stores.
+        </p>
+
+        <h2>Prefer we do it for you?</h2>
+        <p>
+          If you can't access the app, email
+          <strong><a href="mailto:support@dewllio.com">support@dewllio.com</a></strong> from the
+          address associated with your account and request deletion. We will verify ownership and
+          delete your account and data within 30 days.
+        </p>
+
+        <div class="callout">
+          <strong>Data retention:</strong> we do not retain personal data after deletion, except
+          where required by law.
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-top">
+          <div>
+            <a class="brand" href="index.html" aria-label="Dewllio home">
+              <span class="logo" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" role="img">
+                  <path d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#fff" />
+                </svg>
+              </span>
+              Dewllio
+            </a>
+            <p class="footer-tag">Know what you own.</p>
+          </div>
+          <nav class="footer-links" aria-label="Footer">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="delete-account.html">Delete account</a>
+            <a href="support.html">Support</a>
+            <a href="mailto:support@dewllio.com">support@dewllio.com</a>
+          </nav>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2026 Dewllio. All rights reserved.</span>
+          <span>Made for people who like knowing where things are.</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
