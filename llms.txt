@@ -1,0 +1,24 @@
+# Dewllio
+
+> Dewllio is a private home-inventory mobile app for iOS and Android that helps people track their belongings, warranties, receipts, and recurring home-maintenance reminders. Tagline: "Know what you own." Launching soon.
+
+## What it does
+- Inventory: catalog every item you own with photos and receipts, organized by room, searchable instantly.
+- Warranty reminders: log a purchase date and coverage length; Dewllio reminds you before a warranty lapses.
+- Recurring maintenance: schedule repeating home tasks (HVAC filters, smoke alarms, gutters) and get reminders.
+- Private & secure: per-account access controls, private file storage, short-lived signed links; data is never sold or used for ads.
+- CSV export: export your full inventory any time for insurance or moving.
+
+## Pricing
+- Free plan available. Dewllio Premium: US$4.99/month or US$39.99/year (unlimited items, tasks, and storage).
+
+## Platforms
+- iOS (App Store) and Android (Google Play). Coming soon.
+
+## Links
+- Home: https://dewllio.com/
+- Privacy Policy: https://dewllio.com/privacy
+- Terms of Use: https://dewllio.com/terms
+- Support & FAQ: https://dewllio.com/support
+- Account deletion: https://dewllio.com/delete-account
+- Contact: support@dewllio.com
