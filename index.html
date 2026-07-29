@@ -18,21 +18,21 @@
     <style>
       :root {
         --teal: #0c7c8f;
+        --teal-1: #0fa0af;
+        --teal-2: #075e6e;
         --teal-grad: linear-gradient(135deg, #0fa0af, #075e6e);
         --gold: #c0801c;
+        --gold-grad: linear-gradient(135deg, #e0a63c, #c07d18);
         --cream: #f5f1e9;
         --card: #ffffff;
         --ink: #1b1712;
         --muted: #5c544a;
         --hairline: rgba(27, 23, 18, 0.08);
         --shadow: 0 18px 40px -20px rgba(7, 94, 110, 0.35);
+        --shadow-lg: 0 40px 90px -30px rgba(7, 94, 110, 0.45);
       }
-      * {
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
         margin: 0;
         font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -40,485 +40,427 @@
         color: var(--ink);
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
       }
-      a {
-        color: var(--teal);
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      .wrap {
-        width: 100%;
-        max-width: 1080px;
-        margin: 0 auto;
-        padding: 0 20px;
+      a { color: var(--teal); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+      /* Scroll progress bar */
+      .progress {
+        position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+        background: var(--gold-grad); z-index: 60; transition: width 0.1s linear;
+        box-shadow: 0 0 12px rgba(224, 166, 60, 0.6);
       }
 
       /* Header */
       .site-header {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        background: rgba(245, 241, 233, 0.85);
-        backdrop-filter: saturate(160%) blur(12px);
-        border-bottom: 1px solid var(--hairline);
+        position: sticky; top: 0; z-index: 40;
+        background: rgba(245, 241, 233, 0.72);
+        backdrop-filter: saturate(160%) blur(14px);
+        -webkit-backdrop-filter: saturate(160%) blur(14px);
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s, background 0.3s;
       }
-      .site-header .wrap {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        min-height: 68px;
-        gap: 16px;
-      }
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 800;
-        font-size: 1.25rem;
-        letter-spacing: -0.02em;
-        color: var(--ink);
-      }
-      .brand:hover {
-        text-decoration: none;
-      }
+      .site-header.scrolled { border-bottom-color: var(--hairline); background: rgba(245, 241, 233, 0.9); }
+      .site-header .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 68px; gap: 16px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; color: var(--ink); }
+      .brand:hover { text-decoration: none; }
       .brand .logo {
-        display: grid;
-        place-items: center;
-        width: 38px;
-        height: 38px;
-        border-radius: 12px;
-        background: var(--teal-grad);
-        box-shadow: var(--shadow);
+        display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px;
+        background: var(--teal-grad); box-shadow: var(--shadow); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
       }
-      .nav {
-        display: flex;
-        gap: 22px;
-        font-size: 0.98rem;
-      }
+      .brand:hover .logo { transform: rotate(-8deg) scale(1.08); }
+      .nav { display: flex; gap: 6px; align-items: center; font-size: 0.98rem; }
       .nav a {
-        color: var(--muted);
-        font-weight: 600;
+        color: var(--muted); font-weight: 600; padding: 8px 14px; border-radius: 999px;
+        position: relative; transition: color 0.2s, background 0.2s;
       }
-      .nav a:hover {
-        color: var(--teal);
-        text-decoration: none;
-      }
-      @media (max-width: 640px) {
-        .nav {
-          gap: 14px;
-          font-size: 0.85rem;
-        }
-      }
+      .nav a:hover { color: var(--teal); text-decoration: none; background: rgba(15,160,175,0.09); }
+      .nav .nav-cta { color: #fff; background: var(--teal-grad); box-shadow: var(--shadow); }
+      .nav .nav-cta:hover { color: #fff; filter: brightness(1.06); transform: translateY(-1px); }
+      @media (max-width: 640px) { .nav a:not(.nav-cta) { display: none; } }
 
       /* Hero */
-      .hero {
-        background: var(--teal-grad);
-        color: #fff;
-        border-radius: 0 0 32px 32px;
-        overflow: hidden;
-        position: relative;
+      .hero { position: relative; overflow: hidden; padding: 46px 0 40px; }
+      .hero-bg { position: absolute; inset: -20% -10% auto -10%; height: 150%; z-index: 0; pointer-events: none; filter: blur(8px); }
+      .blob { position: absolute; border-radius: 50%; opacity: 0.5; mix-blend-mode: multiply; animation: drift 18s ease-in-out infinite; }
+      .blob.b1 { width: 460px; height: 460px; left: -80px; top: -60px; background: radial-gradient(circle at 30% 30%, #7fded0, transparent 68%); }
+      .blob.b2 { width: 420px; height: 420px; right: -60px; top: 20px; background: radial-gradient(circle at 60% 40%, #ffd58a, transparent 66%); animation-delay: -6s; }
+      .blob.b3 { width: 360px; height: 360px; left: 40%; top: 120px; background: radial-gradient(circle at 50% 50%, #9fe0e8, transparent 70%); animation-delay: -11s; }
+      @keyframes drift {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(40px, -30px) scale(1.08); }
+        66% { transform: translate(-30px, 24px) scale(0.96); }
       }
-      .hero::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(
-          120% 90% at 80% -10%,
-          rgba(255, 255, 255, 0.18),
-          transparent 60%
-        );
-        pointer-events: none;
+      .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: center; }
+      @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; gap: 20px; } }
+
+      .eyebrow {
+        display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px;
+        padding: 7px 14px 7px 8px; border-radius: 999px; background: #fff;
+        border: 1px solid var(--hairline); box-shadow: var(--shadow);
+        font-size: 0.8rem; font-weight: 700; letter-spacing: 0.02em; color: var(--ink);
       }
-      .hero .wrap {
-        padding: 72px 20px 84px;
-        position: relative;
-        z-index: 1;
+      .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: #2fbf71; box-shadow: 0 0 0 0 rgba(47,191,113,0.6); animation: pulse 2.2s infinite; }
+      @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(47,191,113,0.55); } 70% { box-shadow: 0 0 0 9px rgba(47,191,113,0); } 100% { box-shadow: 0 0 0 0 rgba(47,191,113,0); } }
+      .eyebrow .pill { padding: 2px 9px; border-radius: 999px; background: var(--gold-grad); color: #fff; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+      h1.title { margin: 0 0 18px; font-size: clamp(2.5rem, 6.4vw, 4.3rem); line-height: 1.02; letter-spacing: -0.035em; font-weight: 850; max-width: 13ch; }
+      h1.title .grad {
+        background: linear-gradient(100deg, #0fa0af 0%, #0c7c8f 30%, #c0801c 62%, #0fa0af 100%);
+        background-size: 220% auto; -webkit-background-clip: text; background-clip: text; color: transparent;
+        animation: sheen 6s linear infinite;
       }
-      .hero h1 {
-        margin: 0 0 16px;
-        font-size: clamp(2.4rem, 7vw, 4rem);
-        line-height: 1.05;
-        letter-spacing: -0.03em;
-        font-weight: 800;
-        max-width: 12ch;
-      }
-      .hero p {
-        margin: 0 0 32px;
-        font-size: clamp(1.05rem, 2.6vw, 1.3rem);
-        color: rgba(255, 255, 255, 0.92);
-        max-width: 54ch;
-      }
-      .badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-      }
+      @keyframes sheen { to { background-position: 220% center; } }
+      .lede { margin: 0 0 30px; font-size: clamp(1.05rem, 2.2vw, 1.28rem); color: var(--muted); max-width: 52ch; }
+
+      .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
       .store-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 20px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.14);
-        border: 1px solid rgba(255, 255, 255, 0.35);
-        color: #fff;
-        font-weight: 600;
-        cursor: not-allowed;
-        opacity: 0.9;
+        display: inline-flex; align-items: center; gap: 11px; padding: 12px 20px; border-radius: 16px;
+        background: linear-gradient(135deg, #241d15, #3a2e1f); color: #fff; font-weight: 600;
+        box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.08);
+        transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s; position: relative;
       }
-      .store-badge small {
-        display: block;
-        font-size: 0.68rem;
-        font-weight: 500;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        opacity: 0.8;
+      .store-badge:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); text-decoration: none; }
+      .store-badge small { display: block; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.72; }
+      .store-badge strong { font-size: 1rem; font-weight: 700; }
+      .store-badge .tag { position: absolute; top: -9px; right: -8px; background: var(--gold-grad); color: #fff; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; box-shadow: var(--shadow); }
+      .ghost-btn {
+        display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 16px;
+        background: #fff; border: 1px solid var(--hairline); color: var(--ink); font-weight: 700;
+        box-shadow: var(--shadow); transition: transform 0.25s, color 0.25s;
       }
-      .store-badge strong {
-        font-size: 0.98rem;
-        font-weight: 700;
+      .ghost-btn:hover { transform: translateY(-3px); color: var(--teal); text-decoration: none; }
+      .trust-line { margin-top: 22px; display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.9rem; }
+      .trust-line svg { flex: none; }
+
+      /* Phone mockup */
+      .phone-stage { position: relative; display: grid; place-items: center; min-height: 520px; }
+      .phone {
+        position: relative; width: 288px; height: 590px; border-radius: 44px; padding: 12px;
+        background: linear-gradient(160deg, #2a2118, #120d08); box-shadow: var(--shadow-lg), 0 0 0 2px rgba(255,255,255,0.04) inset;
+        animation: floaty 6s ease-in-out infinite; z-index: 2;
       }
-      .coming-soon {
-        display: inline-block;
-        margin-bottom: 22px;
-        padding: 6px 14px;
-        border-radius: 999px;
-        background: rgba(192, 128, 28, 0.9);
-        color: #fff;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+      @keyframes floaty { 0%,100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-16px) rotate(-1.2deg); } }
+      .phone .notch { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 96px; height: 26px; background: #0a0705; border-radius: 999px; z-index: 3; }
+      .screen { width: 100%; height: 100%; border-radius: 33px; background: var(--cream); overflow: hidden; position: relative; display: flex; flex-direction: column; }
+      .s-status { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px 6px; font-size: 0.72rem; font-weight: 700; color: var(--ink); }
+      .s-body { padding: 6px 16px 16px; overflow: hidden; }
+      .s-greet { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+      .s-greet b { color: var(--ink); }
+      .s-hero {
+        margin: 10px 0; border-radius: 20px; padding: 16px; color: #fff; background: var(--teal-grad);
+        box-shadow: var(--shadow); position: relative; overflow: hidden;
       }
+      .s-hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(90% 80% at 85% -10%, rgba(255,255,255,0.22), transparent 60%); }
+      .s-hero .lab { font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; }
+      .s-hero .big { font-size: 1.9rem; font-weight: 850; letter-spacing: -0.02em; line-height: 1.1; }
+      .s-hero .sub { font-size: 0.66rem; opacity: 0.9; }
+      .s-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+      .s-tile { background: #fff; border-radius: 16px; padding: 11px; box-shadow: var(--shadow); }
+      .s-tile.gold { background: linear-gradient(135deg, #fbeccd, #f6e0b6); }
+      .s-tile .k { font-size: 1.15rem; font-weight: 850; letter-spacing: -0.02em; }
+      .s-tile .l { font-size: 0.6rem; color: var(--muted); font-weight: 600; }
+      .s-sec { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 4px 2px 8px; }
+      .s-item { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 14px; padding: 9px 11px; margin-bottom: 8px; box-shadow: var(--shadow); }
+      .s-ic { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; font-size: 15px; flex: none; }
+      .s-item .nm { font-size: 0.74rem; font-weight: 700; }
+      .s-item .dt { font-size: 0.6rem; color: var(--muted); }
+      .s-item .chip { margin-left: auto; font-size: 0.56rem; font-weight: 800; padding: 3px 7px; border-radius: 999px; background: rgba(192,128,28,0.14); color: var(--gold); }
+
+      /* Floating notification card */
+      .float-card {
+        position: absolute; z-index: 3; background: #fff; border-radius: 16px; padding: 12px 14px;
+        box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 10px; max-width: 230px;
+      }
+      .float-card .fic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; background: rgba(47,191,113,0.14); }
+      .float-card .ft { font-size: 0.76rem; font-weight: 800; line-height: 1.2; }
+      .float-card .fs { font-size: 0.66rem; color: var(--muted); }
+      .float-card.fc1 { top: 40px; left: -6px; animation: floaty2 5s ease-in-out infinite; }
+      .float-card.fc2 { bottom: 60px; right: -10px; animation: floaty2 5.6s ease-in-out infinite; animation-delay: -2s; }
+      @keyframes floaty2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+      @media (max-width: 460px) { .float-card { display: none; } .phone { width: 264px; height: 540px; } }
+
+      /* Marquee */
+      .marquee-wrap { padding: 26px 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); background: rgba(255,255,255,0.5); }
+      .marquee { display: flex; gap: 14px; width: max-content; animation: scrollx 32s linear infinite; }
+      .marquee:hover { animation-play-state: paused; }
+      @keyframes scrollx { to { transform: translateX(-50%); } }
+      .cat {
+        display: inline-flex; align-items: center; gap: 9px; padding: 10px 16px; border-radius: 999px;
+        background: #fff; border: 1px solid var(--hairline); box-shadow: var(--shadow); white-space: nowrap; font-weight: 700; font-size: 0.9rem;
+      }
+      .cat .e { font-size: 1.05rem; }
 
       /* Sections */
-      section.block {
-        padding: 72px 0;
-      }
-      .section-head {
-        max-width: 640px;
-        margin: 0 auto 44px;
-        text-align: center;
-      }
-      .section-head h2 {
-        margin: 0 0 12px;
-        font-size: clamp(1.7rem, 4vw, 2.4rem);
-        letter-spacing: -0.02em;
-        font-weight: 800;
-      }
-      .section-head p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 1.08rem;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 22px;
-      }
-      @media (max-width: 860px) {
-        .grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 560px) {
-        .grid {
-          grid-template-columns: 1fr;
-        }
-      }
-      .card {
-        background: var(--card);
-        border-radius: 22px;
-        padding: 28px 24px;
-        box-shadow: var(--shadow);
-        border: 1px solid var(--hairline);
-      }
-      .card .icon {
-        display: grid;
-        place-items: center;
-        width: 52px;
-        height: 52px;
-        border-radius: 15px;
-        background: rgba(15, 160, 175, 0.12);
-        margin-bottom: 18px;
-      }
-      .card h3 {
-        margin: 0 0 8px;
-        font-size: 1.2rem;
-        letter-spacing: -0.01em;
-      }
-      .card p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.98rem;
-      }
+      section.block { padding: 78px 0; }
+      .section-head { max-width: 640px; margin: 0 auto 48px; text-align: center; }
+      .section-head .kicker { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+      .section-head h2 { margin: 0 0 12px; font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -0.025em; font-weight: 850; }
+      .section-head p { margin: 0; color: var(--muted); font-size: 1.1rem; }
 
-      /* CTA band */
-      .cta {
-        margin: 24px auto 72px;
-        max-width: 1040px;
-      }
-      .cta-inner {
-        background: var(--teal-grad);
-        color: #fff;
-        border-radius: 28px;
-        padding: 52px 32px;
-        text-align: center;
-        box-shadow: var(--shadow);
-        position: relative;
-        overflow: hidden;
-      }
-      .cta-inner::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(
-          120% 120% at 15% 0%,
-          rgba(255, 255, 255, 0.16),
-          transparent 55%
-        );
-      }
-      .cta-inner > * {
-        position: relative;
-        z-index: 1;
-      }
-      .cta-inner h2 {
-        margin: 0 0 12px;
-        font-size: clamp(1.6rem, 4vw, 2.3rem);
-        letter-spacing: -0.02em;
-      }
-      .cta-inner p {
-        margin: 0 0 26px;
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1.08rem;
-      }
+      /* Stats */
+      .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+      @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+      .stat { background: #fff; border-radius: 22px; padding: 26px 20px; text-align: center; box-shadow: var(--shadow); border: 1px solid var(--hairline); }
+      .stat .num { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 850; letter-spacing: -0.03em; background: var(--teal-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .stat .lbl { color: var(--muted); font-weight: 600; font-size: 0.95rem; margin-top: 4px; }
+
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+      @media (max-width: 860px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+      .card { position: relative; background: var(--card); border-radius: 24px; padding: 30px 26px; box-shadow: var(--shadow); border: 1px solid var(--hairline); overflow: hidden; transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s; }
+      .card::before { content: ""; position: absolute; inset: 0; border-radius: 24px; padding: 1px; background: var(--teal-grad); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.35s; }
+      .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+      .card:hover::before { opacity: 1; }
+      .card .icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 17px; background: rgba(15,160,175,0.12); margin-bottom: 20px; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+      .card:hover .icon { transform: scale(1.12) rotate(-6deg); }
+      .card h3 { margin: 0 0 8px; font-size: 1.22rem; letter-spacing: -0.01em; }
+      .card p { margin: 0; color: var(--muted); font-size: 0.98rem; }
+
+      /* Steps */
+      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; }
+      @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+      .step { text-align: center; padding: 8px; }
+      .step .n { width: 60px; height: 60px; margin: 0 auto 18px; border-radius: 50%; display: grid; place-items: center; font-weight: 850; font-size: 1.4rem; color: #fff; background: var(--teal-grad); box-shadow: var(--shadow); position: relative; }
+      .step .n::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px dashed rgba(15,160,175,0.35); animation: spin 14s linear infinite; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      .step h3 { margin: 0 0 6px; font-size: 1.2rem; }
+      .step p { margin: 0; color: var(--muted); }
+
+      /* CTA */
+      .cta { margin: 20px auto 84px; max-width: 1080px; }
+      .cta-inner { background: var(--teal-grad); color: #fff; border-radius: 32px; padding: 60px 32px; text-align: center; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+      .cta-inner::before { content: ""; position: absolute; inset: -50%; background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.14), transparent 30%); animation: rotate 12s linear infinite; }
+      @keyframes rotate { to { transform: rotate(360deg); } }
+      .cta-inner > * { position: relative; z-index: 1; }
+      .cta-inner h2 { margin: 0 0 12px; font-size: clamp(1.7rem, 4vw, 2.5rem); letter-spacing: -0.025em; }
+      .cta-inner p { margin: 0 auto 28px; color: rgba(255,255,255,0.92); font-size: 1.1rem; max-width: 46ch; }
+      .cta-inner .cta-row { justify-content: center; }
+      .cta-inner .store-badge { background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(6px); }
 
       /* Footer */
-      .site-footer {
-        border-top: 1px solid var(--hairline);
-        background: #efe8db;
-      }
-      .site-footer .wrap {
-        padding: 44px 20px;
-        display: grid;
-        gap: 20px;
-      }
-      .footer-top {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 20px;
-        align-items: flex-start;
-      }
-      .footer-tag {
-        color: var(--muted);
-        margin: 6px 0 0;
-        max-width: 30ch;
-      }
-      .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 18px;
-        font-weight: 600;
-        font-size: 0.95rem;
-      }
-      .footer-links a {
-        color: var(--muted);
-      }
-      .footer-links a:hover {
-        color: var(--teal);
-        text-decoration: none;
-      }
-      .footer-bottom {
-        border-top: 1px solid var(--hairline);
-        padding-top: 18px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 10px;
-        color: var(--muted);
-        font-size: 0.9rem;
+      .site-footer { border-top: 1px solid var(--hairline); background: #efe8db; }
+      .site-footer .wrap { padding: 48px 20px; display: grid; gap: 22px; }
+      .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; align-items: flex-start; }
+      .footer-tag { color: var(--muted); margin: 8px 0 0; max-width: 30ch; }
+      .footer-links { display: flex; flex-wrap: wrap; gap: 18px; font-weight: 600; font-size: 0.95rem; }
+      .footer-links a { color: var(--muted); }
+      .footer-links a:hover { color: var(--teal); text-decoration: none; }
+      .footer-bottom { border-top: 1px solid var(--hairline); padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 0.9rem; }
+
+      /* Reveal on scroll */
+      .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+      .reveal.in { opacity: 1; transform: none; }
+      .reveal[data-d="1"] { transition-delay: 0.08s; }
+      .reveal[data-d="2"] { transition-delay: 0.16s; }
+      .reveal[data-d="3"] { transition-delay: 0.24s; }
+      .reveal[data-d="4"] { transition-delay: 0.32s; }
+      .reveal[data-d="5"] { transition-delay: 0.4s; }
+
+      /* Hero entrance */
+      .rise { opacity: 0; transform: translateY(24px); animation: rise 0.8s cubic-bezier(0.22,1,0.36,1) forwards; }
+      .rise.d1 { animation-delay: 0.05s; } .rise.d2 { animation-delay: 0.15s; } .rise.d3 { animation-delay: 0.28s; } .rise.d4 { animation-delay: 0.42s; } .rise.d5 { animation-delay: 0.56s; }
+      @keyframes rise { to { opacity: 1; transform: none; } }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+        .reveal, .rise { opacity: 1 !important; transform: none !important; }
       }
     </style>
   </head>
   <body>
-    <header class="site-header">
+    <div class="progress" id="progress"></div>
+
+    <header class="site-header" id="header">
       <div class="wrap">
         <a class="brand" href="index.html" aria-label="Dewllio home">
           <span class="logo" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" role="img">
-              <path
-                d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"
-                fill="#fff"
-              />
+              <path d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#fff" />
             </svg>
           </span>
           Dewllio
         </a>
         <nav class="nav" aria-label="Primary">
           <a href="index.html#features">Features</a>
+          <a href="index.html#how">How it works</a>
           <a href="privacy.html">Privacy</a>
-          <a href="terms.html">Terms</a>
           <a href="support.html">Support</a>
+          <a class="nav-cta" href="#get">Get notified</a>
         </nav>
       </div>
     </header>
 
     <main>
+      <!-- HERO -->
       <section class="hero">
+        <div class="hero-bg" aria-hidden="true">
+          <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+        </div>
         <div class="wrap">
-          <span class="coming-soon">Coming soon</span>
-          <h1>Know what you own.</h1>
-          <p>
-            Dewllio keeps your whole home in one calm, private place — every belonging, warranty,
-            receipt, and maintenance reminder. So when something breaks, needs a repair, or has to be
-            replaced, you already have the answer.
-          </p>
-          <div class="badges">
-            <span class="store-badge" aria-disabled="true" title="Coming soon to the App Store">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
-                <path
-                  d="M16.4 12.6c0-2 1.6-3 1.7-3-.9-1.4-2.4-1.5-2.9-1.6-1.2-.1-2.4.7-3 .7s-1.6-.7-2.6-.7c-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.4 2 2.4 2 1 0 1.3-.6 2.5-.6s1.5.6 2.5.6 1.7-1 2.3-2c.7-1.1 1-2.2 1-2.3-.1 0-2-.8-2-3.1zM14.5 6.3c.5-.7.9-1.6.8-2.6-.8 0-1.8.6-2.4 1.2-.5.6-1 1.5-.8 2.4.9.1 1.8-.4 2.4-1z"
-                />
-              </svg>
-              <span><small>Coming soon to the</small><strong>App Store</strong></span>
-            </span>
-            <span class="store-badge" aria-disabled="true" title="Coming soon to Google Play">
-              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 3.3v17.4l9.4-8.7z" fill="#fff" opacity="0.95" />
-                <path d="M16.5 9.3 5.6 3.1 14 11z" fill="#fff" opacity="0.8" />
-                <path d="M16.5 14.7 14 13l-8.4 7.9z" fill="#fff" opacity="0.85" />
-                <path d="M20 12c0 .7-.4 1.3-1 1.6l-2.5 1.1L14 12l2.5-2.7L19 10.4c.6.3 1 .9 1 1.6z" fill="#fff" />
-              </svg>
-              <span><small>Coming soon to</small><strong>Google Play</strong></span>
-            </span>
+          <div class="hero-copy">
+            <span class="eyebrow rise d1"><span class="dot"></span> Launching soon <span class="pill">iOS &amp; Android</span></span>
+            <h1 class="title rise d2">Know <span class="grad">what you own.</span></h1>
+            <p class="lede rise d3">
+              Dewllio keeps your whole home in one calm, private place — every belonging, warranty,
+              receipt, and maintenance reminder. So when something breaks or needs replacing, you
+              already have the answer.
+            </p>
+            <div class="cta-row rise d4" id="get">
+              <a class="store-badge" href="mailto:support@dewllio.com?subject=Notify%20me%20when%20Dewllio%20launches%20on%20iOS" aria-label="Get notified on the App Store">
+                <span class="tag">Notify me</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.4 12.6c0-2 1.6-3 1.7-3-.9-1.4-2.4-1.5-2.9-1.6-1.2-.1-2.4.7-3 .7s-1.6-.7-2.6-.7c-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.4 2 2.4 2 1 0 1.3-.6 2.5-.6s1.5.6 2.5.6 1.7-1 2.3-2c.7-1.1 1-2.2 1-2.3-.1 0-2-.8-2-3.1zM14.5 6.3c.5-.7.9-1.6.8-2.6-.8 0-1.8.6-2.4 1.2-.5.6-1 1.5-.8 2.4.9.1 1.8-.4 2.4-1z"/></svg>
+                <span><small>Coming soon to the</small><strong>App Store</strong></span>
+              </a>
+              <a class="store-badge" href="mailto:support@dewllio.com?subject=Notify%20me%20when%20Dewllio%20launches%20on%20Android" aria-label="Get notified on Google Play">
+                <span class="tag">Notify me</span>
+                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.3v17.4l9.4-8.7z" fill="#3ad07f"/><path d="M16.5 9.3 5.6 3.1 14 11z" fill="#ff5a5f"/><path d="M16.5 14.7 14 13l-8.4 7.9z" fill="#ffce3d"/><path d="M20 12c0 .7-.4 1.3-1 1.6l-2.5 1.1L14 12l2.5-2.7L19 10.4c.6.3 1 .9 1 1.6z" fill="#00b8e6"/></svg>
+                <span><small>Coming soon to</small><strong>Google Play</strong></span>
+              </a>
+            </div>
+            <div class="trust-line rise d5">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3.5 5 6.3V11c0 4.6 3 7.9 7 9.5 4-1.6 7-4.9 7-9.5V6.3z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round"/><path d="m9.2 12 2 2 3.6-3.8" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Private by design — your records are never sold or used for ads.
+            </div>
+          </div>
+
+          <!-- Phone mockup -->
+          <div class="phone-stage rise d3">
+            <div class="float-card fc1" aria-hidden="true">
+              <span class="fic">🔔</span>
+              <span><span class="ft">Warranty expiring</span><span class="fs">MacBook Pro — in 7 days</span></span>
+            </div>
+            <div class="phone" role="img" aria-label="Preview of the Dewllio app dashboard">
+              <span class="notch"></span>
+              <div class="screen">
+                <div class="s-status"><span>9:41</span><span>􀙇 􀛨 􀛭</span></div>
+                <div class="s-body">
+                  <div class="s-greet">Good evening, <b>Faizan</b> 👋</div>
+                  <div class="s-hero">
+                    <div class="lab">Your home</div>
+                    <div class="big">42 items</div>
+                    <div class="sub">across 6 rooms · all backed up</div>
+                  </div>
+                  <div class="s-tiles">
+                    <div class="s-tile gold"><div class="k">$12,480</div><div class="l">Estimated value</div></div>
+                    <div class="s-tile"><div class="k">3</div><div class="l">Warranties active</div></div>
+                  </div>
+                  <div class="s-sec">Expiring soon</div>
+                  <div class="s-item"><span class="s-ic" style="background:rgba(15,160,175,0.14)">💻</span><span><span class="nm">MacBook Pro</span><br><span class="dt">AppleCare</span></span><span class="chip">7 days</span></div>
+                  <div class="s-item"><span class="s-ic" style="background:rgba(192,128,28,0.14)">🛋️</span><span><span class="nm">Living-room sofa</span><br><span class="dt">Store warranty</span></span><span class="chip">3 wks</span></div>
+                  <div class="s-item"><span class="s-ic" style="background:rgba(47,191,113,0.14)">🚜</span><span><span class="nm">Lawn mower</span><br><span class="dt">Manufacturer</span></span><span class="chip">2 mo</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="float-card fc2" aria-hidden="true">
+              <span class="fic">✅</span>
+              <span><span class="ft">Task done</span><span class="fs">Replaced HVAC filter</span></span>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- Category marquee -->
+      <div class="marquee-wrap" aria-hidden="true">
+        <div class="marquee" id="marquee">
+          <span class="cat"><span class="e">🛋️</span> Furniture</span>
+          <span class="cat"><span class="e">💻</span> Electronics</span>
+          <span class="cat"><span class="e">🧺</span> Appliances</span>
+          <span class="cat"><span class="e">🔧</span> Tools</span>
+          <span class="cat"><span class="e">🍴</span> Kitchen</span>
+          <span class="cat"><span class="e">🚜</span> Outdoor</span>
+          <span class="cat"><span class="e">💎</span> Jewelry</span>
+          <span class="cat"><span class="e">👕</span> Clothing</span>
+          <span class="cat"><span class="e">🚗</span> Vehicles</span>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <section class="block" style="padding-bottom: 30px;">
+        <div class="wrap">
+          <div class="stats">
+            <div class="stat reveal" data-d="1"><div class="num" data-count="30" data-suffix="s">30s</div><div class="lbl">to add an item</div></div>
+            <div class="stat reveal" data-d="2"><div class="num" data-count="100" data-suffix="%">100%</div><div class="lbl">private &amp; encrypted</div></div>
+            <div class="stat reveal" data-d="3"><div class="num" data-count="0">0</div><div class="lbl">ads, ever</div></div>
+            <div class="stat reveal" data-d="4"><div class="num" data-count="1" data-suffix=" tap">1 tap</div><div class="lbl">to export it all</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features -->
       <section class="block" id="features">
         <div class="wrap">
-          <div class="section-head">
-            <h2>Everything about your home, organized</h2>
-            <p>
-              A warm, premium home for the things that matter — built to be fast to fill in and easy
-              to trust.
-            </p>
+          <div class="section-head reveal">
+            <span class="kicker">Everything in one place</span>
+            <h2>Your whole home, beautifully organized</h2>
+            <p>A warm, premium home for the things that matter — fast to fill in and easy to trust.</p>
           </div>
           <div class="grid">
-            <article class="card">
-              <span class="icon" aria-hidden="true">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                  <rect x="3" y="6" width="18" height="14" rx="2.5" stroke="#0C7C8F" stroke-width="1.7" />
-                  <path d="M8 6 9.2 3.8a1 1 0 0 1 .9-.5h3.8a1 1 0 0 1 .9.5L16 6" stroke="#0C7C8F" stroke-width="1.7" />
-                  <circle cx="12" cy="13" r="3.4" stroke="#C0801C" stroke-width="1.7" />
-                </svg>
-              </span>
+            <article class="card reveal" data-d="1">
+              <span class="icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="14" rx="2.5" stroke="#0C7C8F" stroke-width="1.7"/><path d="M8 6 9.2 3.8a1 1 0 0 1 .9-.5h3.8a1 1 0 0 1 .9.5L16 6" stroke="#0C7C8F" stroke-width="1.7"/><circle cx="12" cy="13" r="3.4" stroke="#C0801C" stroke-width="1.7"/></svg></span>
               <h3>Inventory with photos &amp; receipts</h3>
-              <p>
-                Snap a photo, jot the details, and attach the receipt. Every item you own, captured
-                in seconds and always at hand.
-              </p>
+              <p>Snap a photo, jot the details, attach the receipt. Every item you own, captured in seconds and always at hand.</p>
             </article>
-            <article class="card">
-              <span class="icon" aria-hidden="true">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="13" r="8" stroke="#0C7C8F" stroke-width="1.7" />
-                  <path d="M12 9v4l2.6 2" stroke="#0C7C8F" stroke-width="1.7" stroke-linecap="round" />
-                  <path d="M9 2.5h6" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" />
-                </svg>
-              </span>
+            <article class="card reveal" data-d="2">
+              <span class="icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="8" stroke="#0C7C8F" stroke-width="1.7"/><path d="M12 9v4l2.6 2" stroke="#0C7C8F" stroke-width="1.7" stroke-linecap="round"/><path d="M9 2.5h6" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round"/></svg></span>
               <h3>Warranty reminders</h3>
-              <p>
-                Log a purchase date and coverage length once. Dewllio nudges you before a warranty
-                lapses — while a claim is still worth making.
-              </p>
+              <p>Log a purchase date and coverage once. Dewllio nudges you before a warranty lapses — while a claim is still worth making.</p>
             </article>
-            <article class="card">
-              <span class="icon" aria-hidden="true">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                  <path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="#0C7C8F" stroke-width="1.7" stroke-linecap="round" />
-                  <path d="M20 4v4h-4" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
+            <article class="card reveal" data-d="3">
+              <span class="icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="#0C7C8F" stroke-width="1.7" stroke-linecap="round"/><path d="M20 4v4h-4" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               <h3>Recurring maintenance</h3>
-              <p>
-                Filters, smoke alarms, gutters, HVAC. Set a cadence and let Dewllio remember the
-                upkeep that keeps your home running.
-              </p>
+              <p>Filters, smoke alarms, gutters, HVAC. Set a cadence and let Dewllio remember the upkeep that keeps your home running.</p>
             </article>
-            <article class="card">
-              <span class="icon" aria-hidden="true">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 20V9.5L12 4l8 5.5V20a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round" />
-                  <circle cx="17.5" cy="6.5" r="3" stroke="#C0801C" stroke-width="1.6" />
-                  <path d="m19.7 8.7 1.8 1.8" stroke="#C0801C" stroke-width="1.6" stroke-linecap="round" />
-                </svg>
-              </span>
-              <h3>Rooms &amp; search</h3>
-              <p>
-                Group items by room and find anything instantly. "What's in the garage?" is finally
-                a one-tap question.
-              </p>
+            <article class="card reveal" data-d="1">
+              <span class="icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 20V9.5L12 4l8 5.5V20a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round"/><circle cx="17.5" cy="6.5" r="3" stroke="#C0801C" stroke-width="1.6"/><path d="m19.7 8.7 1.8 1.8" stroke="#C0801C" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+              <h3>Rooms &amp; instant search</h3>
+              <p>Group items by room and find anything instantly. “What’s in the garage?” is finally a one-tap question.</p>
             </article>
-            <article class="card">
-              <span class="icon" aria-hidden="true">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 3.5 5 6.3V11c0 4.6 3 7.9 7 9.5 4-1.6 7-4.9 7-9.5V6.3z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round" />
-                  <path d="m9.2 12 2 2 3.6-3.8" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
+            <article class="card reveal" data-d="2">
+              <span class="icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3.5 5 6.3V11c0 4.6 3 7.9 7 9.5 4-1.6 7-4.9 7-9.5V6.3z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round"/><path d="m9.2 12 2 2 3.6-3.8" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               <h3>Private &amp; secure</h3>
-              <p>
-                Your records are yours. Per-account access controls, private file storage, and
-                short-lived links — never sold, never used for ads.
-              </p>
+              <p>Your records are yours. Per-account access, private file storage, and short-lived links — never sold, never used for ads.</p>
             </article>
-            <article class="card">
-              <span class="icon" aria-hidden="true">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                  <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round" />
-                  <path d="M14 3v5h5" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round" />
-                  <path d="M12 11v6m0 0-2.3-2.3M12 17l2.3-2.3" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
+            <article class="card reveal" data-d="3">
+              <span class="icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 11v6m0 0-2.3-2.3M12 17l2.3-2.3" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               <h3>CSV export</h3>
-              <p>
-                Your data travels with you. Export a clean CSV of your inventory any time — for
-                insurance, moving, or your own records.
-              </p>
+              <p>Your data travels with you. Export a clean CSV of your inventory any time — for insurance, moving, or your own records.</p>
             </article>
           </div>
         </div>
       </section>
 
+      <!-- How it works -->
+      <section class="block" id="how" style="background: rgba(255,255,255,0.5); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">Set up in minutes</span>
+            <h2>Three steps to total peace of mind</h2>
+          </div>
+          <div class="steps">
+            <div class="step reveal" data-d="1"><div class="n">1</div><h3>Add your home</h3><p>Create your home and rooms once. It takes about a minute.</p></div>
+            <div class="step reveal" data-d="2"><div class="n">2</div><h3>Capture your things</h3><p>Snap photos, add warranties and receipts — a few taps each.</p></div>
+            <div class="step reveal" data-d="3"><div class="n">3</div><h3>Relax</h3><p>Dewllio reminds you before warranties lapse and maintenance is due.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
       <section class="cta">
-        <div class="cta-inner">
+        <div class="cta-inner reveal">
           <h2>Peace of mind, one home at a time.</h2>
-          <p>
-            Dewllio is launching soon on iOS and Android. Set up your home once, and never scramble
-            for a receipt or warranty again.
-          </p>
-          <div class="badges" style="justify-content: center">
-            <span class="store-badge" aria-disabled="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
-                <path
-                  d="M16.4 12.6c0-2 1.6-3 1.7-3-.9-1.4-2.4-1.5-2.9-1.6-1.2-.1-2.4.7-3 .7s-1.6-.7-2.6-.7c-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.4 2 2.4 2 1 0 1.3-.6 2.5-.6s1.5.6 2.5.6 1.7-1 2.3-2c.7-1.1 1-2.2 1-2.3-.1 0-2-.8-2-3.1zM14.5 6.3c.5-.7.9-1.6.8-2.6-.8 0-1.8.6-2.4 1.2-.5.6-1 1.5-.8 2.4.9.1 1.8-.4 2.4-1z"
-                />
-              </svg>
+          <p>Dewllio is launching soon on iOS and Android. Set up your home once, and never scramble for a receipt or warranty again.</p>
+          <div class="cta-row">
+            <a class="store-badge" href="mailto:support@dewllio.com?subject=Notify%20me%20when%20Dewllio%20launches">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.4 12.6c0-2 1.6-3 1.7-3-.9-1.4-2.4-1.5-2.9-1.6-1.2-.1-2.4.7-3 .7s-1.6-.7-2.6-.7c-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.4 2 2.4 2 1 0 1.3-.6 2.5-.6s1.5.6 2.5.6 1.7-1 2.3-2c.7-1.1 1-2.2 1-2.3-.1 0-2-.8-2-3.1zM14.5 6.3c.5-.7.9-1.6.8-2.6-.8 0-1.8.6-2.4 1.2-.5.6-1 1.5-.8 2.4.9.1 1.8-.4 2.4-1z"/></svg>
               <span><small>Coming soon to the</small><strong>App Store</strong></span>
-            </span>
-            <span class="store-badge" aria-disabled="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 3.3v17.4l9.4-8.7z" fill="#fff" opacity="0.95" />
-                <path d="M16.5 9.3 5.6 3.1 14 11z" fill="#fff" opacity="0.8" />
-                <path d="M16.5 14.7 14 13l-8.4 7.9z" fill="#fff" opacity="0.85" />
-                <path d="M20 12c0 .7-.4 1.3-1 1.6l-2.5 1.1L14 12l2.5-2.7L19 10.4c.6.3 1 .9 1 1.6z" fill="#fff" />
-              </svg>
+            </a>
+            <a class="store-badge" href="mailto:support@dewllio.com?subject=Notify%20me%20when%20Dewllio%20launches">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.3v17.4l9.4-8.7z" fill="#fff" opacity="0.95"/><path d="M16.5 9.3 5.6 3.1 14 11z" fill="#fff" opacity="0.8"/><path d="M16.5 14.7 14 13l-8.4 7.9z" fill="#fff" opacity="0.85"/><path d="M20 12c0 .7-.4 1.3-1 1.6l-2.5 1.1L14 12l2.5-2.7L19 10.4c.6.3 1 .9 1 1.6z" fill="#fff"/></svg>
               <span><small>Coming soon to</small><strong>Google Play</strong></span>
-            </span>
+            </a>
           </div>
         </div>
       </section>
@@ -529,11 +471,7 @@
         <div class="footer-top">
           <div>
             <a class="brand" href="index.html" aria-label="Dewllio home">
-              <span class="logo" aria-hidden="true">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" role="img">
-                  <path d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#fff" />
-                </svg>
-              </span>
+              <span class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" role="img"><path d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#fff"/></svg></span>
               Dewllio
             </a>
             <p class="footer-tag">Know what you own.</p>
@@ -552,5 +490,65 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      // Scroll progress + header shadow
+      var header = document.getElementById('header');
+      var progress = document.getElementById('progress');
+      function onScroll() {
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        progress.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+        header.classList.toggle('scrolled', h.scrollTop > 8);
+      }
+      document.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Duplicate marquee content for a seamless loop
+      var m = document.getElementById('marquee');
+      if (m) { m.innerHTML += m.innerHTML; }
+
+      // Reveal on scroll
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var reveals = [].slice.call(document.querySelectorAll('.reveal'));
+      if (reduce || !('IntersectionObserver' in window)) {
+        reveals.forEach(function (el) { el.classList.add('in'); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.15 });
+        reveals.forEach(function (el) { io.observe(el); });
+
+        // Count-up stats
+        var counted = false;
+        var statsSection = document.querySelector('.stats');
+        if (statsSection) {
+          var co = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting && !counted) {
+                counted = true;
+                document.querySelectorAll('.num[data-count]').forEach(function (el) {
+                  var target = parseInt(el.getAttribute('data-count'), 10);
+                  var suffix = el.getAttribute('data-suffix') || '';
+                  var start = 0, dur = 1100, t0 = null;
+                  function tick(ts) {
+                    if (!t0) t0 = ts;
+                    var p = Math.min((ts - t0) / dur, 1);
+                    var val = Math.round((1 - Math.pow(1 - p, 3)) * (target - start) + start);
+                    el.textContent = val + suffix;
+                    if (p < 1) requestAnimationFrame(tick);
+                  }
+                  requestAnimationFrame(tick);
+                });
+                co.disconnect();
+              }
+            });
+          }, { threshold: 0.4 });
+          co.observe(statsSection);
+        }
+      }
+    </script>
   </body>
 </html>
