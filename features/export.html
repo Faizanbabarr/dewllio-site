@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dewllio — Support</title>
+    <title>CSV export &amp; data portability — Dewllio</title>
     <style>
       :root {
         --teal: #0c7c8f;
@@ -35,14 +35,12 @@
       a:hover { text-decoration: underline; }
       .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
 
-      /* Scroll progress bar */
       .progress {
         position: fixed; top: 0; left: 0; height: 3px; width: 0%;
         background: var(--gold-grad); z-index: 60; transition: width 0.1s linear;
         box-shadow: 0 0 12px rgba(224, 166, 60, 0.6);
       }
 
-      /* Header */
       .site-header {
         position: sticky; top: 0; z-index: 40;
         background: rgba(245, 241, 233, 0.72);
@@ -70,7 +68,6 @@
       .nav .nav-cta:hover { color: #fff; filter: brightness(1.06); transform: translateY(-1px); }
       @media (max-width: 640px) { .nav a:not(.nav-cta) { display: none; } }
 
-      /* Aurora hero */
       .hero { position: relative; overflow: hidden; padding: 68px 0 60px; background: var(--teal-grad); color: #fff; border-radius: 0 0 32px 32px; box-shadow: var(--shadow); }
       .hero-bg { position: absolute; inset: -20% -10% auto -10%; height: 170%; z-index: 0; pointer-events: none; filter: blur(8px); }
       .blob { position: absolute; border-radius: 50%; opacity: 0.55; mix-blend-mode: screen; animation: drift 18s ease-in-out infinite; }
@@ -97,59 +94,75 @@
       h1.title { margin: 0 0 16px; font-size: clamp(2.3rem, 5.6vw, 3.6rem); line-height: 1.04; letter-spacing: -0.03em; font-weight: 850; }
       .lede { margin: 0; font-size: clamp(1.05rem, 2.2vw, 1.28rem); color: rgba(255,255,255,0.92); max-width: 56ch; }
 
-      /* Content container */
       .container { max-width: 760px; margin: 44px auto 84px; }
 
-      /* Contact card */
-      .contact-card {
-        position: relative; background: var(--card); border: 1px solid var(--hairline);
-        border-radius: 24px; box-shadow: var(--shadow); padding: 32px clamp(22px, 5vw, 40px);
-        display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 22px;
-        overflow: hidden; transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s;
-      }
-      .contact-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-      .contact-card .cc-copy { display: flex; align-items: flex-start; gap: 16px; min-width: 260px; flex: 1; }
-      .contact-card .cc-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 17px; background: rgba(15,160,175,0.12); flex: none; }
-      .contact-card h2 { margin: 0 0 6px; font-size: 1.4rem; letter-spacing: -0.01em; }
-      .contact-card p { margin: 0; color: var(--muted); }
       .btn {
-        display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 999px;
+        display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px;
         background: var(--teal-grad); color: #fff; font-weight: 700; text-decoration: none;
         box-shadow: var(--shadow); white-space: nowrap;
         transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s, filter 0.25s;
       }
       .btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); filter: brightness(1.05); text-decoration: none; color: #fff; }
+      .btn.ghost { background: #fff; color: var(--ink); border: 1px solid var(--hairline); }
+      .btn.ghost:hover { color: var(--teal); }
 
-      /* FAQ */
-      .faq { margin-top: 30px; display: grid; gap: 14px; }
-      .faq-head { margin: 12px 4px 4px; }
-      .faq-head .kicker { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-      .faq-head h2 { margin: 0; font-size: clamp(1.6rem, 4vw, 2.2rem); letter-spacing: -0.025em; font-weight: 850; }
-
-      details {
+      /* Join card */
+      .join {
         position: relative; background: var(--card); border: 1px solid var(--hairline);
-        border-radius: 20px; box-shadow: var(--shadow); padding: 4px 24px; overflow: hidden;
+        border-radius: 26px; box-shadow: var(--shadow); padding: 34px clamp(22px,5vw,40px);
+        text-align: center; overflow: hidden;
         transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s;
       }
-      details:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-      details[open] { box-shadow: var(--shadow-lg); }
-      summary {
-        cursor: pointer; list-style: none; padding: 20px 0; font-weight: 700; font-size: 1.06rem;
-        display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      }
-      summary::-webkit-details-marker { display: none; }
-      summary::after {
-        content: "+"; color: var(--teal); font-size: 1.5rem; font-weight: 600; line-height: 1;
-        transition: transform 0.25s ease; flex: none;
-      }
-      details[open] summary::after { transform: rotate(45deg); }
-      details .answer { padding: 0 0 22px; color: var(--muted); }
-      details .answer code {
-        background: rgba(15, 160, 175, 0.12); color: var(--teal);
-        padding: 2px 8px; border-radius: 6px; font-weight: 700;
-      }
+      .join:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+      .join .badge { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 20px; background: rgba(15,160,175,0.12); margin-bottom: 16px; }
+      .join h2 { margin: 0 0 8px; font-size: clamp(1.4rem,4vw,1.8rem); letter-spacing: -0.02em; }
+      .join p { margin: 0 auto 22px; color: var(--muted); max-width: 46ch; }
+      .join .os { margin-top: 16px; font-size: 0.85rem; color: var(--muted); }
 
-      /* Footer */
+      /* Answer box */
+      .answer-box { background:#fff; border:1px solid var(--hairline); border-left:5px solid var(--teal); border-radius:16px; box-shadow:var(--shadow); padding:24px 26px; margin:0 0 30px; }
+      .answer-box .ql { display:inline-block; font-size:0.72rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+      .answer-box p { margin:0; font-size:1.1rem; line-height:1.6; color:var(--ink); }
+
+      /* Steps */
+      .sec-head { margin: 40px 4px 18px; }
+      .sec-head .kicker { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+      .sec-head h2 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); letter-spacing: -0.025em; font-weight: 850; }
+      .jsteps { display: grid; gap: 14px; }
+      .jstep {
+        display: flex; gap: 16px; align-items: flex-start; background: var(--card);
+        border: 1px solid var(--hairline); border-radius: 20px; box-shadow: var(--shadow);
+        padding: 20px 22px; transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s;
+      }
+      .jstep:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+      .jstep .n { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 850; color: #fff; background: var(--teal-grad); box-shadow: var(--shadow); }
+      .jstep h3 { margin: 2px 0 4px; font-size: 1.08rem; }
+      .jstep p { margin: 0; color: var(--muted); }
+      .jstep code { background: rgba(15,160,175,0.12); color: var(--teal); padding: 2px 8px; border-radius: 6px; font-weight: 700; }
+
+      /* Prose */
+      .prose p { color: var(--muted); font-size: 1.02rem; margin: 0 0 16px; }
+      .prose p:last-child { margin-bottom: 0; }
+      .prose strong { color: var(--ink); }
+
+      /* Related links */
+      .related-links { display: grid; gap: 12px; margin: 6px 0 26px; }
+      .related-links a.rlink {
+        display: flex; align-items: center; justify-content: space-between; gap: 14px;
+        background: var(--card); border: 1px solid var(--hairline); border-radius: 16px;
+        box-shadow: var(--shadow); padding: 16px 20px; color: var(--ink); font-weight: 700;
+        transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.3s, color 0.2s;
+      }
+      .related-links a.rlink:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); color: var(--teal); text-decoration: none; }
+      .related-links a.rlink span.arrow { color: var(--gold); font-weight: 850; }
+      .cta-row { margin-top: 8px; }
+
+      .note {
+        margin-top: 26px; background: rgba(192,128,28,0.08); border: 1px solid rgba(192,128,28,0.25);
+        border-radius: 18px; padding: 18px 22px; color: var(--ink); font-size: 0.96rem;
+      }
+      .note b { color: var(--gold); }
+
       .site-footer { border-top: 1px solid var(--hairline); background: #efe8db; }
       .site-footer .wrap { padding: 48px 20px; display: grid; gap: 22px; }
       .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; align-items: flex-start; }
@@ -159,16 +172,12 @@
       .footer-links a:hover { color: var(--teal); text-decoration: none; }
       .footer-bottom { border-top: 1px solid var(--hairline); padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 0.9rem; }
 
-      /* Reveal on scroll */
       .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
       .reveal.in { opacity: 1; transform: none; }
       .reveal[data-d="1"] { transition-delay: 0.08s; }
       .reveal[data-d="2"] { transition-delay: 0.16s; }
       .reveal[data-d="3"] { transition-delay: 0.24s; }
-      .reveal[data-d="4"] { transition-delay: 0.32s; }
-      .reveal[data-d="5"] { transition-delay: 0.4s; }
 
-      /* Hero entrance */
       .rise { opacity: 0; transform: translateY(24px); animation: rise 0.8s cubic-bezier(0.22,1,0.36,1) forwards; }
       .rise.d1 { animation-delay: 0.05s; } .rise.d2 { animation-delay: 0.15s; } .rise.d3 { animation-delay: 0.28s; }
       @keyframes rise { to { opacity: 1; transform: none; } }
@@ -184,82 +193,56 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="description" content="Dewllio help center: FAQs on adding items, warranty reminders, recurring maintenance, exporting data, privacy, and deleting your account." />
-    <link rel="canonical" href="https://dewllio.com/support" />
+    <meta name="description" content="Export your entire Dewllio home inventory to a clean CSV any time — for an insurance claim, a move, or your own records. Your data is never locked in." />
+    <link rel="canonical" href="https://dewllio.com/features/export" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="author" content="Dewllio" />
     <meta name="theme-color" content="#0C7C8F" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Dewllio" />
-    <meta property="og:title" content="Dewllio — Support" />
-    <meta property="og:description" content="Dewllio help center: FAQs on adding items, warranty reminders, recurring maintenance, exporting data, privacy, and deleting your account." />
-    <meta property="og:url" content="https://dewllio.com/support" />
+    <meta property="og:title" content="CSV export &amp; data portability — Dewllio" />
+    <meta property="og:description" content="Export your whole home inventory to a clean CSV any time — for insurance, a move, or your own records. Your data is never locked in." />
+    <meta property="og:url" content="https://dewllio.com/features/export" />
     <meta property="og:image" content="https://dewllio.com/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Dewllio — Know what you own." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Dewllio — Support" />
-    <meta name="twitter:description" content="Dewllio help center: FAQs on adding items, warranty reminders, recurring maintenance, exporting data, privacy, and deleting your account." />
+    <meta name="twitter:title" content="CSV export &amp; data portability — Dewllio" />
+    <meta name="twitter:description" content="Export your whole home inventory to a clean CSV any time — for insurance, a move, or your own records. Your data is never locked in." />
     <meta name="twitter:image" content="https://dewllio.com/og.png" />
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
     {
-      "@type": "Question",
-      "name": "How do I add an item?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "From your home, tap the + button and choose Add item. Give it a name, snap or attach a photo, pick a room, and add any details you like \u2014 purchase date, price, serial number, or a receipt. Tap Save and it's in your inventory, searchable right away."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do warranty reminders work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "When adding or editing an item, set the purchase date and the warranty length (for example, 12 or 24 months). Dewllio calculates the expiry date and sends you a reminder before coverage ends, so you have time to make a claim. You can attach the warranty document to the item, too."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I set up recurring maintenance?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Create a maintenance task (like replacing an HVAC filter or testing smoke alarms), choose how often it should repeat, and Dewllio will remind you each time it's due. Mark tasks complete to keep a tidy history of your home's upkeep."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I export my data?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Go to Settings \u2192 Export data to download a clean CSV of your inventory \u2014 handy for insurance, a move, or your own records."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I delete my account?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Open Settings \u2192 Delete account, then type DELETE to confirm. Deletion is immediate and irreversible. If you can't access the app, email support@querywing.com and we'll delete it for you after verifying ownership."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is my data private?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Your records are protected with per-account access controls, private file storage, and short-lived signed links. We never sell your data or use it for advertising."
-      }
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I export my home inventory from Dewllio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Anytime. Go to Settings → Export data to download a clean CSV of your entire inventory — perfect for an insurance claim, a move, or your own records. Your data is never locked in."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What format does Dewllio export?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dewllio exports a standard CSV file with one row per item and columns for the details you've recorded — name, category, room, value, purchase date, warranty, serial number, and notes. It opens in Excel, Numbers, Google Sheets, or any spreadsheet tool, and can be handed straight to an insurer or adjuster."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I own my data in Dewllio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Your inventory is yours. You can export a full CSV at any time, and if you delete your account Dewllio permanently removes your data. There is no lock-in — the export lets you take everything with you."
+          }
+        }
+      ]
     }
-  ]
-}
     </script>
-
-
   </head>
   <body>
     <div class="progress" id="progress"></div>
@@ -277,115 +260,140 @@
         <nav class="nav" aria-label="Primary">
           <a href="/features">Features</a>
           <a href="/how-it-works">How it works</a>
-          <a href="/privacy">Privacy</a>
           <a href="/support">Support</a>
-          <a class="nav-cta" href="/#get">Get notified</a>
+          <a class="nav-cta" href="/testing">Join the beta</a>
         </nav>
       </div>
     </header>
 
     <main>
-      <!-- Aurora hero -->
       <section class="hero">
         <div class="hero-bg" aria-hidden="true">
           <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
         </div>
         <div class="wrap">
           <div class="hero-inner">
-            <span class="eyebrow rise d1"><span class="dot"></span> We're here to help</span>
-            <h1 class="title rise d2">Support</h1>
-            <p class="lede rise d3">We're happy to help. Reach us directly, or check the quick answers below.</p>
+            <span class="eyebrow rise d1"><span class="dot"></span> Export</span>
+            <h1 class="title rise d2">Your data travels with you</h1>
+            <p class="lede rise d3">
+              Export a clean CSV of your whole inventory any time — for insurance, a move,
+              or your own records.
+            </p>
           </div>
         </div>
       </section>
 
       <div class="container wrap">
-        <section class="contact-card reveal" data-d="1" aria-label="Contact">
-          <div class="cc-copy">
-            <span class="cc-icon" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="5" width="18" height="14" rx="2.5" stroke="#0C7C8F" stroke-width="1.7" />
-                <path d="m4 7 8 6 8-6" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </span>
-            <div>
-              <h2>Contact us</h2>
-              <p>
-                Email our team and we'll get back to you, usually within one business day. Please
-                include your device and OS version so we can help faster.
-              </p>
-            </div>
+        <!-- Answer box -->
+        <div class="answer-box reveal">
+          <span class="ql">Quick answer</span>
+          <p>
+            Anytime. Go to Settings → Export data to download a clean CSV of your entire
+            inventory — perfect for an insurance claim, a move, or your own records. Your data
+            is never locked in.
+          </p>
+        </div>
+
+        <!-- One-tap CSV export -->
+        <section class="reveal prose" data-d="1" aria-label="One-tap CSV export">
+          <div class="sec-head">
+            <span class="kicker">One tap</span>
+            <h2>Export in a single tap</h2>
           </div>
-          <a class="btn" href="mailto:support@querywing.com">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect x="3" y="5" width="18" height="14" rx="2.5" stroke="#fff" stroke-width="1.8" />
-              <path d="m4 7 8 6 8-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            support@querywing.com
-          </a>
+          <p>
+            Everything you've added to Dewllio — every item, room, value, warranty date, serial
+            number, and note — lives in one place. When you need it somewhere else, open
+            <strong>Settings → Export data</strong> and Dewllio builds a clean CSV of your full
+            inventory on the spot.
+          </p>
+          <p>
+            The file is a plain, standard spreadsheet: one row per item, one column per field.
+            It opens straight into Excel, Numbers, Google Sheets, or anything that reads CSV —
+            no special software, no proprietary format, no cleanup required. If you're still
+            filling out your inventory, the <a href="/features/inventory">home inventory</a>
+            page walks through what each item can hold.
+          </p>
         </section>
 
-        <section class="faq reveal" data-d="2" aria-label="Frequently asked questions">
-          <div class="faq-head">
-            <span class="kicker">Quick answers</span>
-            <h2>Frequently asked questions</h2>
+        <!-- Made for insurance & moving -->
+        <section class="reveal prose" data-d="2" aria-label="Made for insurance and moving">
+          <div class="sec-head">
+            <span class="kicker">Real-world use</span>
+            <h2>Made for insurance &amp; moving day</h2>
           </div>
-
-          <details>
-            <summary>How do I add an item?</summary>
-            <div class="answer">
-              From your home, tap the <strong>+</strong> button and choose <strong>Add item</strong>.
-              Give it a name, snap or attach a photo, pick a room, and add any details you like —
-              purchase date, price, serial number, or a receipt. Tap <strong>Save</strong> and it's
-              in your inventory, searchable right away.
+          <p>
+            A home inventory is only useful when you can actually hand it over. After a burglary,
+            fire, or flood, insurers and adjusters want an itemised list with values and dates —
+            and a Dewllio CSV gives them exactly that, ready to attach to a claim instead of
+            reconstructing it from memory.
+          </p>
+          <p>
+            The same export earns its keep on a move. Print it as a room-by-room packing
+            checklist, share it with movers for a valuation, or use it to confirm nothing went
+            missing between the old place and the new one. It's the one document that captures
+            what you own, room by room.
+          </p>
+          <div class="jsteps" style="margin-top:18px;">
+            <div class="jstep">
+              <span class="n" aria-hidden="true">A</span>
+              <div>
+                <h3>For an insurance claim</h3>
+                <p>Attach a dated, valued list of belongings so a claim moves faster and nothing gets overlooked.</p>
+              </div>
             </div>
-          </details>
-
-          <details>
-            <summary>How do warranty reminders work?</summary>
-            <div class="answer">
-              When adding or editing an item, set the <strong>purchase date</strong> and the
-              <strong>warranty length</strong> (for example, 12 or 24 months). Dewllio calculates the
-              expiry date and sends you a reminder before coverage ends, so you have time to make a
-              claim. You can attach the warranty document to the item, too.
+            <div class="jstep">
+              <span class="n" aria-hidden="true">B</span>
+              <div>
+                <h3>For a move</h3>
+                <p>Turn your inventory into a packing and check-in list, and share item values with movers.</p>
+              </div>
             </div>
-          </details>
-
-          <details>
-            <summary>How do I set up recurring maintenance?</summary>
-            <div class="answer">
-              Create a maintenance task (like replacing an HVAC filter or testing smoke alarms),
-              choose how often it should repeat, and Dewllio will remind you each time it's due.
-              Mark tasks complete to keep a tidy history of your home's upkeep.
+            <div class="jstep">
+              <span class="n" aria-hidden="true">C</span>
+              <div>
+                <h3>For your own records</h3>
+                <p>Keep an offline backup, or fold it into a household spreadsheet you already use.</p>
+              </div>
             </div>
-          </details>
+          </div>
+        </section>
 
-          <details>
-            <summary>How do I export my data?</summary>
-            <div class="answer">
-              Go to <strong>Settings → Export data</strong> to download a clean CSV of your
-              inventory — handy for insurance, a move, or your own records.
-            </div>
-          </details>
+        <!-- Data portability & ownership -->
+        <section class="reveal prose" data-d="3" aria-label="Data portability and ownership">
+          <div class="sec-head">
+            <span class="kicker">Your data, your call</span>
+            <h2>Portability &amp; ownership</h2>
+          </div>
+          <p>
+            Dewllio treats your inventory as <strong>your</strong> data, not ours to hold hostage.
+            The export exists so you're never trapped: whatever you put in, you can take out, in a
+            format any other tool can read. There's no premium tier gating your own records behind
+            a paywall to get them back.
+          </p>
+          <p>
+            That principle runs through the whole app. Your inventory stays private and encrypted
+            in transit — you can read more on the
+            <a href="/features/security">private &amp; secure</a> page — and if you ever choose to
+            delete your account, Dewllio permanently removes your data. Export first, and you keep a
+            complete copy for yourself. Know what you own, and keep it that way.
+          </p>
+        </section>
 
-          <details>
-            <summary>How do I delete my account?</summary>
-            <div class="answer">
-              Open <strong>Settings → Delete account</strong>, then type <code>DELETE</code> to
-              confirm. Deletion is immediate and irreversible. Full details are on our
-              <a href="/delete-account">account deletion page</a>. If you can't access the app,
-              email us and we'll delete it for you after verifying ownership.
-            </div>
-          </details>
-
-          <details>
-            <summary>Is my data private?</summary>
-            <div class="answer">
-              Yes. Your records are protected with per-account access controls, private file
-              storage, and short-lived signed links. We never sell your data or use it for
-              advertising. Read the full <a href="/privacy">Privacy Policy</a>.
-            </div>
-          </details>
+        <!-- Related -->
+        <section class="reveal" data-d="1" aria-label="Explore more">
+          <div class="sec-head">
+            <span class="kicker">Explore more</span>
+            <h2>Explore more</h2>
+          </div>
+          <div class="related-links">
+            <a class="rlink" href="/features/inventory"><span>Home inventory</span><span class="arrow" aria-hidden="true">→</span></a>
+            <a class="rlink" href="/features/security"><span>Private &amp; secure</span><span class="arrow" aria-hidden="true">→</span></a>
+            <a class="rlink" href="/features/rooms"><span>Rooms &amp; search</span><span class="arrow" aria-hidden="true">→</span></a>
+            <a class="rlink" href="/features"><span>All features</span><span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+          <div class="cta-row">
+            <a class="btn" href="/testing">Join the Android beta</a>
+          </div>
         </section>
       </div>
     </main>
@@ -416,7 +424,6 @@
     </footer>
 
     <script>
-      // Scroll progress + header shadow
       var header = document.getElementById('header');
       var progress = document.getElementById('progress');
       function onScroll() {
@@ -428,7 +435,6 @@
       document.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
 
-      // Reveal on scroll
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var reveals = [].slice.call(document.querySelectorAll('.reveal'));
       if (reduce || !('IntersectionObserver' in window)) {

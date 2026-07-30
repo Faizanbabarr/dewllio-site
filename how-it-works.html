@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dewllio — Join the Beta</title>
+    <title>How Dewllio works — set up in minutes</title>
     <style>
       :root {
         --teal: #0c7c8f;
@@ -119,6 +119,39 @@
       .join p { margin: 0 auto 22px; color: var(--muted); max-width: 46ch; }
       .join .os { margin-top: 16px; font-size: 0.85rem; color: var(--muted); }
 
+      /* Answer box */
+      .answer-box { background:#fff; border:1px solid var(--hairline); border-left:5px solid var(--teal); border-radius:16px; box-shadow:var(--shadow); padding:24px 26px; margin:0 0 30px; }
+      .answer-box .ql { display:inline-block; font-size:0.72rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+      .answer-box p { margin:0; font-size:1.1rem; line-height:1.6; color:var(--ink); }
+
+      /* Prose */
+      .prose p { color: var(--muted); font-size: 1.02rem; }
+      .prose p a { font-weight: 600; }
+
+      /* Track list */
+      .tracklist { display: grid; gap: 12px; margin: 6px 0 4px; }
+      .track {
+        display: flex; gap: 14px; align-items: flex-start; background: var(--card);
+        border: 1px solid var(--hairline); border-radius: 18px; box-shadow: var(--shadow);
+        padding: 18px 20px; transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s;
+      }
+      .track:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+      .track .ic { flex: none; width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; background: rgba(15,160,175,0.12); }
+      .track h3 { margin: 1px 0 4px; font-size: 1.05rem; }
+      .track h3 a { color: var(--ink); }
+      .track h3 a:hover { color: var(--teal); text-decoration: none; }
+      .track p { margin: 0; color: var(--muted); font-size: 0.97rem; }
+
+      /* Related links */
+      .related-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 4px 0 24px; }
+      .related-links a {
+        display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px;
+        background: #fff; border: 1px solid var(--hairline); box-shadow: var(--shadow);
+        color: var(--ink); font-weight: 600; font-size: 0.96rem;
+        transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s, color 0.2s;
+      }
+      .related-links a:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); color: var(--teal); text-decoration: none; }
+
       /* Steps */
       .sec-head { margin: 40px 4px 18px; }
       .sec-head .kicker { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
@@ -171,24 +204,56 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="description" content="Join the Dewllio beta — get early access to the Dewllio home-inventory app on Android and help shape it before launch." />
-    <link rel="canonical" href="https://dewllio.com/testing" />
-    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="How Dewllio works, in three steps: set up your home once, capture your belongings with photos, warranties and receipts, then let Dewllio remind you before warranties lapse and maintenance is due. Private, ad-free, iOS and Android." />
+    <link rel="canonical" href="https://dewllio.com/how-it-works" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="author" content="Dewllio" />
     <meta name="theme-color" content="#0C7C8F" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Dewllio" />
-    <meta property="og:title" content="Join the Dewllio beta" />
-    <meta property="og:description" content="Get early access to Dewllio on Android and help shape it before launch." />
-    <meta property="og:url" content="https://dewllio.com/testing" />
+    <meta property="og:title" content="How Dewllio works — set up in minutes" />
+    <meta property="og:description" content="Set up your home once, capture your things with photos and warranties, then let Dewllio handle the reminders. Here is how it works, in three steps." />
+    <meta property="og:url" content="https://dewllio.com/how-it-works" />
     <meta property="og:image" content="https://dewllio.com/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Dewllio — Know what you own." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Join the Dewllio beta" />
-    <meta name="twitter:description" content="Get early access to Dewllio on Android and help shape it before launch." />
+    <meta name="twitter:title" content="How Dewllio works — set up in minutes" />
+    <meta name="twitter:description" content="Set up your home once, capture your things, then let Dewllio handle the reminders. Here is how it works, in three steps." />
     <meta name="twitter:image" content="https://dewllio.com/og.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does Dewllio work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Set up your home once (about a minute), capture your belongings with photos, warranties, and receipts, then relax — Dewllio reminds you before warranties lapse and maintenance is due. It's private, ad-free, and works on iOS and Android."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to set up Dewllio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Creating your home and first rooms takes about a minute. From there you add belongings at your own pace — snap a photo, jot the essentials, and attach a warranty or receipt whenever you have one. There is no bulk import to finish before the app is useful."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Dewllio remind me about warranties and maintenance automatically?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Once you add a warranty expiry or a recurring home-maintenance task, Dewllio schedules the reminders for you and sends a notification before each one is due, so you can act while a warranty is still valid or a task is still on time."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div class="progress" id="progress"></div>
@@ -207,7 +272,7 @@
           <a href="/features">Features</a>
           <a href="/how-it-works">How it works</a>
           <a href="/support">Support</a>
-          <a class="nav-cta" href="#join">Join the beta</a>
+          <a class="nav-cta" href="/testing">Join the beta</a>
         </nav>
       </div>
     </header>
@@ -219,86 +284,169 @@
         </div>
         <div class="wrap">
           <div class="hero-inner">
-            <span class="eyebrow rise d1"><span class="dot"></span> Android beta · invite only</span>
-            <h1 class="title rise d2">Join the Dewllio beta</h1>
+            <span class="eyebrow rise d1"><span class="dot"></span> How it works</span>
+            <h1 class="title rise d2">Three steps to total peace of mind</h1>
             <p class="lede rise d3">
-              Dewllio is in private testing on Android. Get in early, try every feature before
-              launch, and help shape the app with your feedback.
+              Set up your home once, capture your things, and let Dewllio handle the reminders.
             </p>
           </div>
         </div>
       </section>
 
       <div class="container wrap">
-        <!-- Join card -->
-        <section class="join reveal" data-d="1" id="join" aria-label="Join the Android beta">
-          <span class="badge" aria-hidden="true">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-              <path d="M12 3.5 5 6.3V11c0 4.6 3 7.9 7 9.5 4-1.6 7-4.9 7-9.5V6.3z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round" />
-              <path d="m9.2 12 2 2 3.6-3.8" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </span>
-          <h2>Get the Android beta</h2>
+        <!-- Answer box -->
+        <div class="answer-box reveal">
+          <span class="ql">Quick answer</span>
           <p>
-            Once we've added your Google account to the tester list, tap below on your Android phone
-            to opt in and install Dewllio from Google Play.
+            Set up your home once (about a minute), capture your belongings with photos,
+            warranties, and receipts, then relax — Dewllio reminds you before warranties lapse
+            and maintenance is due. It's private, ad-free, and works on iOS and Android.
           </p>
-          <a class="btn" href="https://play.google.com/apps/internaltest/4701134459958489919" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 3.3v17.4l9.4-8.7z" fill="#fff" opacity="0.95" />
-              <path d="M16.5 9.3 5.6 3.1 14 11z" fill="#fff" opacity="0.8" />
-              <path d="M16.5 14.7 14 13l-8.4 7.9z" fill="#fff" opacity="0.85" />
-              <path d="M20 12c0 .7-.4 1.3-1 1.6l-2.5 1.1L14 12l2.5-2.7L19 10.4c.6.3 1 .9 1 1.6z" fill="#fff" />
-            </svg>
-            Become a tester on Google Play
-          </a>
-          <p class="os">Not on the list yet? Request access below — it only takes a reply.</p>
-        </section>
+        </div>
 
-        <!-- How to join -->
-        <section class="reveal" data-d="2" aria-label="How to join">
+        <!-- The three steps -->
+        <section class="reveal" data-d="1" aria-label="The three steps">
           <div class="sec-head">
             <span class="kicker">3 steps</span>
-            <h2>How to join</h2>
+            <h2>From empty to organized</h2>
           </div>
           <div class="jsteps">
             <div class="jstep">
               <span class="n">1</span>
               <div>
-                <h3>Request access</h3>
+                <h3>Add your home</h3>
                 <p>
-                  Email <a href="mailto:support@querywing.com?subject=Dewllio%20Android%20beta%20access">support@querywing.com</a>
-                  and tell us the <b>Google account email</b> on your Android phone. We'll add you to
-                  the tester list (usually the same day).
+                  Create your home and set up rooms — kitchen, garage, living room, wherever your
+                  things live. It takes about a minute, and you can add or rename rooms any time.
+                  This is the frame everything else hangs on, so your inventory stays organized by
+                  where things actually are.
                 </p>
               </div>
             </div>
             <div class="jstep">
               <span class="n">2</span>
               <div>
-                <h3>Opt in</h3>
+                <h3>Capture your things</h3>
                 <p>
-                  On your phone (signed into that same Google account), tap
-                  <b>Become a tester</b> above and accept. Give it a minute to register.
+                  Snap a photo of an item, add the details that matter — brand, model, serial
+                  number, purchase date — and attach the warranty and receipt. Do it as you go;
+                  there's no bulk import to finish before the app pays off. Every item lives in a
+                  room, so you always know what you own and where it is.
                 </p>
               </div>
             </div>
             <div class="jstep">
               <span class="n">3</span>
               <div>
-                <h3>Install &amp; explore</h3>
+                <h3>Relax</h3>
                 <p>
-                  Open Dewllio on <b>Google Play</b> and install. Add a few items, set a warranty
-                  reminder, and tell us what you think — you're in! 🎉
+                  Once a warranty expiry or a recurring maintenance task is in place, Dewllio does
+                  the remembering. It reminds you before warranties lapse and before maintenance is
+                  due — so you claim while coverage is still valid and stay ahead of the filter
+                  changes and service dates that are easy to forget.
                 </p>
               </div>
             </div>
           </div>
+        </section>
+
+        <!-- What you can track -->
+        <section class="reveal" data-d="2" aria-label="What you can track">
+          <div class="sec-head">
+            <span class="kicker">Under the hood</span>
+            <h2>What you can track</h2>
+          </div>
+          <div class="prose">
+            <p>
+              Those three steps cover the whole loop, but each one opens up into more. Dewllio is
+              built around a handful of connected pieces — your inventory, the warranties and
+              receipts attached to it, the maintenance reminders that keep your home running, and
+              the rooms that hold it all together. Here's what each part does.
+            </p>
+          </div>
+          <div class="tracklist">
+            <div class="track">
+              <span class="ic" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#0C7C8F" stroke-width="1.7"/><path d="M8 9h8M8 12h8M8 15h5" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </span>
+              <div>
+                <h3><a href="/features/inventory">Home inventory</a></h3>
+                <p>A searchable record of everything you own, with photos and the details you'd need for a claim, a resale, or a move.</p>
+              </div>
+            </div>
+            <div class="track">
+              <span class="ic" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3.5 5 6.3V11c0 4.6 3 7.9 7 9.5 4-1.6 7-4.9 7-9.5V6.3z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round"/><path d="m9.2 12 2 2 3.6-3.8" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <div>
+                <h3><a href="/features/warranties">Warranty tracking</a></h3>
+                <p>Log each warranty's expiry and get reminded before it lapses, so you fix or replace on the manufacturer's dime instead of yours.</p>
+              </div>
+            </div>
+            <div class="track">
+              <span class="ic" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 6.5v5.5l3.5 2" stroke="#0C7C8F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12.5" r="7.5" stroke="#C0801C" stroke-width="1.7"/></svg>
+              </span>
+              <div>
+                <h3><a href="/features/maintenance">Maintenance reminders</a></h3>
+                <p>Set recurring home tasks — HVAC filters, smoke-alarm batteries, gutter cleaning — and let Dewllio nudge you before each is due.</p>
+              </div>
+            </div>
+            <div class="track">
+              <span class="ic" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11 12 4l9 7v8a1 1 0 0 1-1 1h-4v-6H8v6H4a1 1 0 0 1-1-1z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round"/></svg>
+              </span>
+              <div>
+                <h3><a href="/features/rooms">Rooms &amp; organization</a></h3>
+                <p>Group items by the room they live in, so everything you own has a place and you can find it fast when it matters.</p>
+              </div>
+            </div>
+            <div class="track">
+              <span class="ic" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="5" y="10.5" width="14" height="9" rx="2" stroke="#0C7C8F" stroke-width="1.7"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" stroke="#C0801C" stroke-width="1.7"/></svg>
+              </span>
+              <div>
+                <h3><a href="/features/security">Privacy &amp; security</a></h3>
+                <p>Your inventory is yours alone — private storage, no ads, and no selling of your data. Peace of mind is the point.</p>
+              </div>
+            </div>
+            <div class="track">
+              <span class="ic" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 4v9m0 0 3.2-3.2M12 13 8.8 9.8" stroke="#0C7C8F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </span>
+              <div>
+                <h3><a href="/features/export">Export your data</a></h3>
+                <p>Take your records with you whenever you want — useful for an insurance claim, an estate, or simply your own backup.</p>
+              </div>
+            </div>
+          </div>
+          <div class="prose">
+            <p>
+              Want the full picture of everything Dewllio does? See <a href="/features">all features</a>,
+              or jump straight to <a href="/features/warranties">warranty tracking</a> — the piece most
+              people set up first.
+            </p>
+          </div>
 
           <div class="note">
-            <b>Note:</b> the beta is invite-only, so the button only works once your email is on the
-            tester list. iOS testing (TestFlight) is coming soon — email us to be first in line.
+            <b>Free to start:</b> the core loop — add your home, capture items, get reminders — is
+            free. Premium unlocks higher limits and extras for $4.99/mo or $39.99/yr when you're
+            ready for more.
           </div>
+        </section>
+
+        <!-- Related -->
+        <section class="reveal" data-d="3" aria-label="Explore more">
+          <div class="sec-head">
+            <span class="kicker">Keep going</span>
+            <h2>Explore more</h2>
+          </div>
+          <div class="related-links">
+            <a href="/features">All features</a>
+            <a href="/testing">Join the Android beta</a>
+            <a href="/">Home</a>
+          </div>
+          <a class="btn" href="/testing">Join the Android beta</a>
         </section>
       </div>
     </main>

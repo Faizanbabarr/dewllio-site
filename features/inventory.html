@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dewllio — Join the Beta</title>
+    <title>Home inventory with photos &amp; receipts — Dewllio</title>
     <style>
       :root {
         --teal: #0c7c8f;
@@ -106,20 +106,17 @@
       .btn.ghost { background: #fff; color: var(--ink); border: 1px solid var(--hairline); }
       .btn.ghost:hover { color: var(--teal); }
 
-      /* Join card */
-      .join {
-        position: relative; background: var(--card); border: 1px solid var(--hairline);
-        border-radius: 26px; box-shadow: var(--shadow); padding: 34px clamp(22px,5vw,40px);
-        text-align: center; overflow: hidden;
-        transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s;
-      }
-      .join:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-      .join .badge { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 20px; background: rgba(15,160,175,0.12); margin-bottom: 16px; }
-      .join h2 { margin: 0 0 8px; font-size: clamp(1.4rem,4vw,1.8rem); letter-spacing: -0.02em; }
-      .join p { margin: 0 auto 22px; color: var(--muted); max-width: 46ch; }
-      .join .os { margin-top: 16px; font-size: 0.85rem; color: var(--muted); }
+      /* Answer box */
+      .answer-box { background:#fff; border:1px solid var(--hairline); border-left:5px solid var(--teal); border-radius:16px; box-shadow:var(--shadow); padding:24px 26px; margin:0 0 30px; }
+      .answer-box .ql { display:inline-block; font-size:0.72rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+      .answer-box p { margin:0; font-size:1.1rem; line-height:1.6; color:var(--ink); }
 
-      /* Steps */
+      /* Prose */
+      .prose p { color: var(--muted); font-size: 1.05rem; margin: 0 0 16px; }
+      .prose p:last-child { margin-bottom: 0; }
+      .prose strong { color: var(--ink); }
+
+      /* Cards */
       .sec-head { margin: 40px 4px 18px; }
       .sec-head .kicker { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
       .sec-head h2 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); letter-spacing: -0.025em; font-weight: 850; }
@@ -134,6 +131,18 @@
       .jstep h3 { margin: 2px 0 4px; font-size: 1.08rem; }
       .jstep p { margin: 0; color: var(--muted); }
       .jstep code { background: rgba(15,160,175,0.12); color: var(--teal); padding: 2px 8px; border-radius: 6px; font-weight: 700; }
+
+      /* Related links */
+      .related-links { display: grid; gap: 12px; margin-top: 6px; }
+      .related-links a {
+        display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        background: var(--card); border: 1px solid var(--hairline); border-radius: 16px;
+        box-shadow: var(--shadow); padding: 16px 20px; color: var(--ink); font-weight: 700;
+        transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.3s, color 0.2s;
+      }
+      .related-links a:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); text-decoration: none; color: var(--teal); }
+      .related-links a .arrow { color: var(--gold); font-weight: 800; }
+      .related-cta { margin-top: 22px; }
 
       .note {
         margin-top: 26px; background: rgba(192,128,28,0.08); border: 1px solid rgba(192,128,28,0.25);
@@ -171,24 +180,56 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="description" content="Join the Dewllio beta — get early access to the Dewllio home-inventory app on Android and help shape it before launch." />
-    <link rel="canonical" href="https://dewllio.com/testing" />
-    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="Catalog everything you own with Dewllio: add an item in about 30 seconds with a photo, receipt, room, purchase date, price, brand, and serial number — all searchable and privately backed up." />
+    <link rel="canonical" href="https://dewllio.com/features/inventory" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="author" content="Dewllio" />
     <meta name="theme-color" content="#0C7C8F" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Dewllio" />
-    <meta property="og:title" content="Join the Dewllio beta" />
-    <meta property="og:description" content="Get early access to Dewllio on Android and help shape it before launch." />
-    <meta property="og:url" content="https://dewllio.com/testing" />
+    <meta property="og:title" content="Home inventory with photos &amp; receipts — Dewllio" />
+    <meta property="og:description" content="Capture everything you own in seconds — with the photo, receipt, and details that matter. A home inventory you'll actually keep." />
+    <meta property="og:url" content="https://dewllio.com/features/inventory" />
     <meta property="og:image" content="https://dewllio.com/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Dewllio — Know what you own." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Join the Dewllio beta" />
-    <meta name="twitter:description" content="Get early access to Dewllio on Android and help shape it before launch." />
+    <meta name="twitter:title" content="Home inventory with photos &amp; receipts — Dewllio" />
+    <meta name="twitter:description" content="Capture everything you own in seconds — with the photo, receipt, and details that matter. A home inventory you'll actually keep." />
     <meta name="twitter:image" content="https://dewllio.com/og.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I catalog everything I own with Dewllio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Open Dewllio, tap +, and add an item in about 30 seconds: name it, snap a photo, pick a room, and attach the receipt plus details like purchase date, price, brand, and serial number. Every item is searchable instantly and backed up to your private account."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I attach receipts and photos to each item?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Every item can hold a photo of the product and its receipt or document together, so proof of purchase lives next to the thing it belongs to instead of scattered across your camera roll, email, and a drawer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What details should I record for an insurance claim?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a smoother claim, capture the item's brand and model, serial number, purchase date, price, a photo, and the receipt. Dewllio has a field for each, so if something is lost, stolen, or damaged you already have the documentation on hand."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div class="progress" id="progress"></div>
@@ -207,7 +248,7 @@
           <a href="/features">Features</a>
           <a href="/how-it-works">How it works</a>
           <a href="/support">Support</a>
-          <a class="nav-cta" href="#join">Join the beta</a>
+          <a class="nav-cta" href="/testing">Join the beta</a>
         </nav>
       </div>
     </header>
@@ -219,85 +260,144 @@
         </div>
         <div class="wrap">
           <div class="hero-inner">
-            <span class="eyebrow rise d1"><span class="dot"></span> Android beta · invite only</span>
-            <h1 class="title rise d2">Join the Dewllio beta</h1>
+            <span class="eyebrow rise d1"><span class="dot"></span> Inventory</span>
+            <h1 class="title rise d2">A home inventory you'll actually keep</h1>
             <p class="lede rise d3">
-              Dewllio is in private testing on Android. Get in early, try every feature before
-              launch, and help shape the app with your feedback.
+              Capture everything you own in seconds — with the photo, receipt, and details
+              that matter.
             </p>
           </div>
         </div>
       </section>
 
       <div class="container wrap">
-        <!-- Join card -->
-        <section class="join reveal" data-d="1" id="join" aria-label="Join the Android beta">
-          <span class="badge" aria-hidden="true">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-              <path d="M12 3.5 5 6.3V11c0 4.6 3 7.9 7 9.5 4-1.6 7-4.9 7-9.5V6.3z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round" />
-              <path d="m9.2 12 2 2 3.6-3.8" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </span>
-          <h2>Get the Android beta</h2>
+        <!-- Answer box -->
+        <div class="answer-box reveal">
+          <span class="ql">Quick answer</span>
           <p>
-            Once we've added your Google account to the tester list, tap below on your Android phone
-            to opt in and install Dewllio from Google Play.
+            Open Dewllio, tap +, and add an item in about 30 seconds: name it, snap a photo,
+            pick a room, and attach the receipt plus details like purchase date, price, brand,
+            and serial number. Every item is searchable instantly and backed up to your private
+            account.
           </p>
-          <a class="btn" href="https://play.google.com/apps/internaltest/4701134459958489919" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 3.3v17.4l9.4-8.7z" fill="#fff" opacity="0.95" />
-              <path d="M16.5 9.3 5.6 3.1 14 11z" fill="#fff" opacity="0.8" />
-              <path d="M16.5 14.7 14 13l-8.4 7.9z" fill="#fff" opacity="0.85" />
-              <path d="M20 12c0 .7-.4 1.3-1 1.6l-2.5 1.1L14 12l2.5-2.7L19 10.4c.6.3 1 .9 1 1.6z" fill="#fff" />
-            </svg>
-            Become a tester on Google Play
-          </a>
-          <p class="os">Not on the list yet? Request access below — it only takes a reply.</p>
+        </div>
+
+        <!-- Section 1: Add an item in seconds -->
+        <section class="prose reveal" data-d="1" aria-label="Add an item in seconds">
+          <div class="sec-head">
+            <span class="kicker">Fast capture</span>
+            <h2>Add an item in seconds</h2>
+          </div>
+          <p>
+            Most inventory apps ask for a form so long you give up after five things. Dewllio
+            flips that: tap the <strong>+</strong> button, give the item a name, and you already
+            have a real entry. A quick photo and a room, and you're done — usually in under
+            half a minute.
+          </p>
+          <p>
+            Everything else is optional and can wait. You can breeze through your whole living
+            room first, then circle back later to add prices, serial numbers, or receipts when
+            you have a spare minute. The point is momentum: an inventory only protects you if
+            you actually finish it.
+          </p>
         </section>
 
-        <!-- How to join -->
-        <section class="reveal" data-d="2" aria-label="How to join">
+        <!-- Section 2: Photos & receipts, kept together -->
+        <section class="prose reveal" data-d="1" aria-label="Photos and receipts kept together">
           <div class="sec-head">
-            <span class="kicker">3 steps</span>
-            <h2>How to join</h2>
+            <span class="kicker">One place</span>
+            <h2>Photos &amp; receipts, kept together</h2>
           </div>
+          <p>
+            Right now the photo of your TV lives in your camera roll, its receipt is buried in
+            an email, and the warranty card is in a drawer somewhere. Dewllio keeps all three
+            in one place — attach a photo of the product <strong>and</strong> its receipt or
+            document to the same item, so proof of purchase never drifts away from the thing it
+            belongs to.
+          </p>
+          <p>
+            Because receipts are captured as you go, the paperwork is already there when you
+            need it — for a return, a repair, or a
+            <a href="/features/warranties">warranty reminder</a> down the line. Photos and
+            documents live in your private, backed-up account, not scattered across apps.
+          </p>
+        </section>
+
+        <!-- Section 3: The details that matter for insurance & claims -->
+        <section class="reveal" data-d="1" aria-label="Details that matter for insurance and claims">
+          <div class="sec-head">
+            <span class="kicker">Be claim-ready</span>
+            <h2>The details that matter for insurance &amp; claims</h2>
+          </div>
+          <p class="prose" style="color: var(--muted); font-size: 1.05rem; margin: 0 0 18px;">
+            If something is ever lost, stolen, or damaged, the difference between a smooth claim
+            and a frustrating one is documentation. Dewllio gives every item a field for the
+            things an insurer or adjuster tends to ask about:
+          </p>
           <div class="jsteps">
             <div class="jstep">
-              <span class="n">1</span>
+              <span class="n">$</span>
               <div>
-                <h3>Request access</h3>
-                <p>
-                  Email <a href="mailto:support@querywing.com?subject=Dewllio%20Android%20beta%20access">support@querywing.com</a>
-                  and tell us the <b>Google account email</b> on your Android phone. We'll add you to
-                  the tester list (usually the same day).
-                </p>
+                <h3>Purchase price &amp; date</h3>
+                <p>Record what you paid and when, so replacement value and depreciation are easy to establish.</p>
               </div>
             </div>
             <div class="jstep">
-              <span class="n">2</span>
+              <span class="n">#</span>
               <div>
-                <h3>Opt in</h3>
-                <p>
-                  On your phone (signed into that same Google account), tap
-                  <b>Become a tester</b> above and accept. Give it a minute to register.
-                </p>
+                <h3>Serial number &amp; brand</h3>
+                <p>Note the <code>serial</code>, brand, and model — the identifiers that prove the specific item was yours.</p>
               </div>
             </div>
             <div class="jstep">
-              <span class="n">3</span>
+              <span class="n">✓</span>
               <div>
-                <h3>Install &amp; explore</h3>
-                <p>
-                  Open Dewllio on <b>Google Play</b> and install. Add a few items, set a warranty
-                  reminder, and tell us what you think — you're in! 🎉
-                </p>
+                <h3>Photo &amp; receipt</h3>
+                <p>Keep a clear photo and the original receipt attached as evidence of ownership and condition.</p>
               </div>
             </div>
           </div>
-
           <div class="note">
-            <b>Note:</b> the beta is invite-only, so the button only works once your email is on the
-            tester list. iOS testing (TestFlight) is coming soon — email us to be first in line.
+            <b>Tip:</b> add these details for your highest-value belongings first — electronics,
+            appliances, jewelry, and tools. A short session now saves a stressful scramble later.
+          </div>
+        </section>
+
+        <!-- Section 4: Always organized and searchable -->
+        <section class="prose reveal" data-d="1" aria-label="Always organized and searchable">
+          <div class="sec-head">
+            <span class="kicker">Findable</span>
+            <h2>Always organized and searchable</h2>
+          </div>
+          <p>
+            Adding things is only half the job — you also need to find them again. In Dewllio,
+            every item is searchable the moment you save it. Look something up by name, brand,
+            or where it lives, and it surfaces instantly.
+          </p>
+          <p>
+            Items are grouped by room, so you can browse the garage or the kitchen the way you'd
+            actually walk through your home. Explore how
+            <a href="/features/rooms">rooms &amp; search</a> keep a growing inventory tidy, and
+            when you need a copy outside the app you can pull the whole list as a
+            spreadsheet. Your inventory stays yours, private and backed up, from the first item
+            to the thousandth.
+          </p>
+        </section>
+
+        <!-- Related -->
+        <section class="reveal" data-d="1" aria-label="Explore more">
+          <div class="sec-head">
+            <span class="kicker">Explore more</span>
+            <h2>Related features</h2>
+          </div>
+          <div class="related-links">
+            <a href="/features/warranties"><span>Warranty reminders</span><span class="arrow">&rarr;</span></a>
+            <a href="/features/rooms"><span>Rooms &amp; search</span><span class="arrow">&rarr;</span></a>
+            <a href="/features/export"><span>CSV export</span><span class="arrow">&rarr;</span></a>
+            <a href="/features"><span>All features</span><span class="arrow">&rarr;</span></a>
+          </div>
+          <div class="related-cta">
+            <a class="btn" href="/testing">Join the Android beta</a>
           </div>
         </section>
       </div>

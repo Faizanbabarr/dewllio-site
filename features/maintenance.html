@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dewllio — Join the Beta</title>
+    <title>Recurring home-maintenance reminders — Dewllio</title>
     <style>
       :root {
         --teal: #0c7c8f;
@@ -141,6 +141,41 @@
       }
       .note b { color: var(--gold); }
 
+      /* Answer box (featured-snippet / AI-answer target) */
+      .answer-box { background:#fff; border:1px solid var(--hairline); border-left:5px solid var(--teal); border-radius:16px; box-shadow:var(--shadow); padding:24px 26px; margin:0 0 30px; }
+      .answer-box .ql { display:inline-block; font-size:0.72rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+      .answer-box p { margin:0; font-size:1.1rem; line-height:1.6; color:var(--ink); }
+
+      /* Prose + feature cards */
+      .prose { color: var(--muted); }
+      .prose p { margin: 0 0 16px; }
+      .prose p:last-child { margin-bottom: 0; }
+      .prose strong { color: var(--ink); }
+      .cards { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; margin-top: 4px; }
+      @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+      .card {
+        background: var(--card); border: 1px solid var(--hairline); border-radius: 20px;
+        box-shadow: var(--shadow); padding: 20px 22px;
+        transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s;
+      }
+      .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+      .card .ico { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: rgba(15,160,175,0.12); margin-bottom: 12px; }
+      .card h3 { margin: 0 0 6px; font-size: 1.05rem; letter-spacing: -0.01em; }
+      .card p { margin: 0; color: var(--muted); font-size: 0.96rem; }
+
+      /* Related */
+      .related-links { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+      @media (max-width: 560px) { .related-links { grid-template-columns: 1fr; } }
+      .related-links a.rl {
+        display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        background: var(--card); border: 1px solid var(--hairline); border-radius: 16px;
+        box-shadow: var(--shadow); padding: 16px 18px; color: var(--ink); font-weight: 700;
+        transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.3s, color 0.2s;
+      }
+      .related-links a.rl:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); color: var(--teal); text-decoration: none; }
+      .related-links a.rl .arr { color: var(--teal); font-weight: 800; }
+      .cta-row { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
       .site-footer { border-top: 1px solid var(--hairline); background: #efe8db; }
       .site-footer .wrap { padding: 48px 20px; display: grid; gap: 22px; }
       .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; align-items: flex-start; }
@@ -171,24 +206,56 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="description" content="Join the Dewllio beta — get early access to the Dewllio home-inventory app on Android and help shape it before launch." />
-    <link rel="canonical" href="https://dewllio.com/testing" />
-    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="Track recurring home maintenance with Dewllio: set a cadence once for filters, smoke alarms, gutters and HVAC, get a reminder each time a task is due, and keep a tidy history of completed upkeep." />
+    <link rel="canonical" href="https://dewllio.com/features/maintenance" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="author" content="Dewllio" />
     <meta name="theme-color" content="#0C7C8F" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Dewllio" />
-    <meta property="og:title" content="Join the Dewllio beta" />
-    <meta property="og:description" content="Get early access to Dewllio on Android and help shape it before launch." />
-    <meta property="og:url" content="https://dewllio.com/testing" />
+    <meta property="og:title" content="Recurring home-maintenance reminders — Dewllio" />
+    <meta property="og:description" content="Set a cadence once for filters, smoke alarms, gutters and HVAC — Dewllio reminds you each time a task is due and keeps a tidy history of your home's upkeep." />
+    <meta property="og:url" content="https://dewllio.com/features/maintenance" />
     <meta property="og:image" content="https://dewllio.com/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Dewllio — Know what you own." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Join the Dewllio beta" />
-    <meta name="twitter:description" content="Get early access to Dewllio on Android and help shape it before launch." />
+    <meta name="twitter:title" content="Recurring home-maintenance reminders — Dewllio" />
+    <meta name="twitter:description" content="Set a cadence once for filters, smoke alarms, gutters and HVAC — Dewllio reminds you each time a task is due and keeps a tidy history of your home's upkeep." />
     <meta name="twitter:image" content="https://dewllio.com/og.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I keep track of recurring home maintenance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Create a maintenance task — like replacing an HVAC filter, testing smoke alarms, or cleaning gutters — choose how often it should repeat, and Dewllio reminds you each time it's due. Mark tasks complete to keep a tidy history of your home's upkeep."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I set how often a maintenance task repeats?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Each task has its own cadence, so you can set a monthly filter change, a quarterly smoke-alarm test, and a twice-a-year gutter clean, then let Dewllio schedule the next occurrence automatically once you mark the current one done."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will Dewllio remind me when a maintenance task is due?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Dewllio sends a notification when a task is coming up or due so upkeep doesn't slip your mind, and it keeps a history of what you've completed and when."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div class="progress" id="progress"></div>
@@ -207,7 +274,7 @@
           <a href="/features">Features</a>
           <a href="/how-it-works">How it works</a>
           <a href="/support">Support</a>
-          <a class="nav-cta" href="#join">Join the beta</a>
+          <a class="nav-cta" href="/testing">Join the beta</a>
         </nav>
       </div>
     </header>
@@ -219,85 +286,163 @@
         </div>
         <div class="wrap">
           <div class="hero-inner">
-            <span class="eyebrow rise d1"><span class="dot"></span> Android beta · invite only</span>
-            <h1 class="title rise d2">Join the Dewllio beta</h1>
+            <span class="eyebrow rise d1"><span class="dot"></span> Maintenance</span>
+            <h1 class="title rise d2">Home upkeep that runs itself</h1>
             <p class="lede rise d3">
-              Dewllio is in private testing on Android. Get in early, try every feature before
-              launch, and help shape the app with your feedback.
+              Filters, smoke alarms, gutters, HVAC — set a cadence once and let Dewllio remember.
             </p>
           </div>
         </div>
       </section>
 
       <div class="container wrap">
-        <!-- Join card -->
-        <section class="join reveal" data-d="1" id="join" aria-label="Join the Android beta">
-          <span class="badge" aria-hidden="true">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-              <path d="M12 3.5 5 6.3V11c0 4.6 3 7.9 7 9.5 4-1.6 7-4.9 7-9.5V6.3z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round" />
-              <path d="m9.2 12 2 2 3.6-3.8" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </span>
-          <h2>Get the Android beta</h2>
+        <!-- Answer box -->
+        <div class="answer-box reveal">
+          <span class="ql">Quick answer</span>
           <p>
-            Once we've added your Google account to the tester list, tap below on your Android phone
-            to opt in and install Dewllio from Google Play.
+            Create a maintenance task — like replacing an HVAC filter, testing smoke alarms, or
+            cleaning gutters — choose how often it should repeat, and Dewllio reminds you each time
+            it's due. Mark tasks complete to keep a tidy history of your home's upkeep.
           </p>
-          <a class="btn" href="https://play.google.com/apps/internaltest/4701134459958489919" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 3.3v17.4l9.4-8.7z" fill="#fff" opacity="0.95" />
-              <path d="M16.5 9.3 5.6 3.1 14 11z" fill="#fff" opacity="0.8" />
-              <path d="M16.5 14.7 14 13l-8.4 7.9z" fill="#fff" opacity="0.85" />
-              <path d="M20 12c0 .7-.4 1.3-1 1.6l-2.5 1.1L14 12l2.5-2.7L19 10.4c.6.3 1 .9 1 1.6z" fill="#fff" />
-            </svg>
-            Become a tester on Google Play
-          </a>
-          <p class="os">Not on the list yet? Request access below — it only takes a reply.</p>
+        </div>
+
+        <!-- Set a repeating cadence -->
+        <section class="reveal" aria-label="Set a repeating cadence">
+          <div class="sec-head">
+            <span class="kicker">Set it once</span>
+            <h2>Set a repeating cadence</h2>
+          </div>
+          <div class="prose">
+            <p>
+              Every home has a rhythm of small jobs, and it's easy to lose track of which one is next.
+              In Dewllio you add a maintenance task, describe what needs doing, and choose how often it
+              should repeat — monthly, quarterly, twice a year, once a year, or whatever interval fits
+              the job. That cadence is saved with the task, so you decide the schedule a single time
+              instead of re-thinking it every season.
+            </p>
+            <p>
+              Because each task carries its own cadence, a monthly furnace-filter swap and a yearly
+              dryer-vent cleaning can happily live side by side. When you mark the current one done,
+              Dewllio rolls the schedule forward to the next occurrence — no spreadsheets, no sticky
+              notes, no mental math about "was that in the spring or the fall?"
+            </p>
+          </div>
         </section>
 
-        <!-- How to join -->
-        <section class="reveal" data-d="2" aria-label="How to join">
+        <!-- Reminders when tasks are due -->
+        <section class="reveal" aria-label="Reminders when tasks are due">
           <div class="sec-head">
-            <span class="kicker">3 steps</span>
-            <h2>How to join</h2>
+            <span class="kicker">Never forget</span>
+            <h2>Reminders when tasks are due</h2>
           </div>
-          <div class="jsteps">
-            <div class="jstep">
-              <span class="n">1</span>
-              <div>
-                <h3>Request access</h3>
-                <p>
-                  Email <a href="mailto:support@querywing.com?subject=Dewllio%20Android%20beta%20access">support@querywing.com</a>
-                  and tell us the <b>Google account email</b> on your Android phone. We'll add you to
-                  the tester list (usually the same day).
-                </p>
-              </div>
-            </div>
-            <div class="jstep">
-              <span class="n">2</span>
-              <div>
-                <h3>Opt in</h3>
-                <p>
-                  On your phone (signed into that same Google account), tap
-                  <b>Become a tester</b> above and accept. Give it a minute to register.
-                </p>
-              </div>
-            </div>
-            <div class="jstep">
-              <span class="n">3</span>
-              <div>
-                <h3>Install &amp; explore</h3>
-                <p>
-                  Open Dewllio on <b>Google Play</b> and install. Add a few items, set a warranty
-                  reminder, and tell us what you think — you're in! 🎉
-                </p>
-              </div>
-            </div>
+          <div class="prose">
+            <p>
+              A schedule only helps if something nudges you at the right moment. Dewllio sends a
+              notification as a task comes due, so upkeep surfaces on its own instead of waiting for you
+              to remember it. The filter gets changed before airflow drops; the smoke alarms get tested
+              before the batteries quietly die.
+            </p>
+            <p>
+              It's the same gentle, on-device reminder engine that powers Dewllio's
+              <a href="/features/warranties">warranty reminders</a> — so the day a coverage window is
+              about to close and the day the gutters are due can both land as a simple, timely heads-up.
+              One place, one habit, fewer things falling through the cracks.
+            </p>
           </div>
+        </section>
 
+        <!-- A tidy history of completed upkeep -->
+        <section class="reveal" aria-label="A tidy history of completed upkeep">
+          <div class="sec-head">
+            <span class="kicker">Proof of care</span>
+            <h2>A tidy history of completed upkeep</h2>
+          </div>
+          <div class="prose">
+            <p>
+              When a task is done, you mark it complete — and that single tap does double duty. It moves
+              the task forward to its next due date, and it leaves a record of when the work happened.
+              Over time those records add up to a clear picture of how your home has been looked after.
+            </p>
+            <p>
+              That history is genuinely useful: it answers "when did I last flush the water heater?"
+              at a glance, shows a buyer or landlord that a place has been maintained, and pairs naturally
+              with your <a href="/features/inventory">home inventory</a> so the appliance and the upkeep
+              it needs live in the same app. Know what you own, and know you've kept it running well.
+            </p>
+          </div>
+        </section>
+
+        <!-- Common tasks to track -->
+        <section class="reveal" aria-label="Common tasks to track">
+          <div class="sec-head">
+            <span class="kicker">Ideas to start</span>
+            <h2>Common tasks to track</h2>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <span class="ico" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#0C7C8F" stroke-width="1.7"/><path d="M4 9h16M4 14h16M9 9v11M14 4v16" stroke="#C0801C" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </span>
+              <h3>HVAC &amp; furnace filters</h3>
+              <p>Swap or clean filters on a monthly or quarterly cadence to keep airflow strong.</p>
+            </div>
+            <div class="card">
+              <span class="ico" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#0C7C8F" stroke-width="1.7"/><circle cx="12" cy="12" r="2.4" fill="#C0801C"/></svg>
+              </span>
+              <h3>Smoke &amp; CO alarms</h3>
+              <p>Test alarms and change batteries on a set schedule so they're always ready.</p>
+            </div>
+            <div class="card">
+              <span class="ico" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 8h16v3l-3 2H7l-3-2z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 16c0 1.5-1 3-1 3M15 16c0 1.5 1 3 1 3" stroke="#C0801C" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </span>
+              <h3>Gutters &amp; downspouts</h3>
+              <p>Clear leaves and debris twice a year so water flows away from the house.</p>
+            </div>
+            <div class="card">
+              <span class="ico" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3s6 5 6 10a6 6 0 0 1-12 0c0-5 6-10 6-10z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 20v-4" stroke="#C0801C" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </span>
+              <h3>Water heater &amp; softener</h3>
+              <p>Flush the tank and top up salt on a yearly rhythm to extend their life.</p>
+            </div>
+            <div class="card">
+              <span class="ico" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="12" rx="2" stroke="#0C7C8F" stroke-width="1.7"/><path d="M4 10h16" stroke="#0C7C8F" stroke-width="1.7"/><circle cx="16.5" cy="8" r="1" fill="#C0801C"/></svg>
+              </span>
+              <h3>Fridge &amp; dryer</h3>
+              <p>Clean coils and clear the dryer vent to run efficiently and safely.</p>
+            </div>
+            <div class="card">
+              <span class="ico" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 20V9l6-5 6 5v11" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#C0801C" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </span>
+              <h3>Seasonal home checks</h3>
+              <p>Reverse ceiling fans, service the mower, or seal decks when the season turns.</p>
+            </div>
+          </div>
           <div class="note">
-            <b>Note:</b> the beta is invite-only, so the button only works once your email is on the
-            tester list. iOS testing (TestFlight) is coming soon — email us to be first in line.
+            <b>Tip:</b> start with two or three tasks you already forget, set their cadence, and add more
+            as the seasons come around. Small, steady upkeep beats one big catch-up day.
+          </div>
+        </section>
+
+        <!-- Related -->
+        <section class="reveal" aria-label="Explore more">
+          <div class="sec-head">
+            <span class="kicker">Explore more</span>
+            <h2>Related features</h2>
+          </div>
+          <div class="related-links">
+            <a class="rl" href="/features/warranties"><span>Warranty reminders</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+            <a class="rl" href="/features/inventory"><span>Home inventory</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+            <a class="rl" href="/features/rooms"><span>Rooms &amp; search</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+            <a class="rl" href="/features"><span>All features</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+          </div>
+          <div class="cta-row">
+            <a class="btn" href="/testing">Join the Android beta</a>
+            <a class="btn ghost" href="/features">Back to all features</a>
           </div>
         </section>
       </div>

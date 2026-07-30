@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dewllio — Join the Beta</title>
+    <title>Private &amp; secure home inventory — Dewllio</title>
     <style>
       :root {
         --teal: #0c7c8f;
@@ -106,23 +106,19 @@
       .btn.ghost { background: #fff; color: var(--ink); border: 1px solid var(--hairline); }
       .btn.ghost:hover { color: var(--teal); }
 
-      /* Join card */
-      .join {
-        position: relative; background: var(--card); border: 1px solid var(--hairline);
-        border-radius: 26px; box-shadow: var(--shadow); padding: 34px clamp(22px,5vw,40px);
-        text-align: center; overflow: hidden;
-        transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s;
-      }
-      .join:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-      .join .badge { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 20px; background: rgba(15,160,175,0.12); margin-bottom: 16px; }
-      .join h2 { margin: 0 0 8px; font-size: clamp(1.4rem,4vw,1.8rem); letter-spacing: -0.02em; }
-      .join p { margin: 0 auto 22px; color: var(--muted); max-width: 46ch; }
-      .join .os { margin-top: 16px; font-size: 0.85rem; color: var(--muted); }
+      /* Answer box */
+      .answer-box { background:#fff; border:1px solid var(--hairline); border-left:5px solid var(--teal); border-radius:16px; box-shadow:var(--shadow); padding:24px 26px; margin:0 0 30px; }
+      .answer-box .ql { display:inline-block; font-size:0.72rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+      .answer-box p { margin:0; font-size:1.1rem; line-height:1.6; color:var(--ink); }
 
       /* Steps */
       .sec-head { margin: 40px 4px 18px; }
       .sec-head .kicker { display: inline-block; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
       .sec-head h2 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); letter-spacing: -0.025em; font-weight: 850; }
+      .prose p { color: var(--muted); font-size: 1.05rem; margin: 0 0 16px; }
+      .prose p:last-child { margin-bottom: 0; }
+      .prose strong { color: var(--ink); }
+
       .jsteps { display: grid; gap: 14px; }
       .jstep {
         display: flex; gap: 16px; align-items: flex-start; background: var(--card);
@@ -140,6 +136,18 @@
         border-radius: 18px; padding: 18px 22px; color: var(--ink); font-size: 0.96rem;
       }
       .note b { color: var(--gold); }
+
+      /* Related links */
+      .related-links { display: grid; gap: 12px; margin-top: 4px; }
+      .related-links a.rl {
+        display: flex; align-items: center; justify-content: space-between; gap: 14px;
+        background: var(--card); border: 1px solid var(--hairline); border-radius: 16px;
+        box-shadow: var(--shadow); padding: 16px 20px; color: var(--ink); font-weight: 700;
+        transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.3s, color 0.2s;
+      }
+      .related-links a.rl:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); text-decoration: none; color: var(--teal); }
+      .related-links a.rl .arw { color: var(--gold); font-weight: 850; }
+      .related-cta { margin-top: 22px; }
 
       .site-footer { border-top: 1px solid var(--hairline); background: #efe8db; }
       .site-footer .wrap { padding: 48px 20px; display: grid; gap: 22px; }
@@ -171,24 +179,56 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="description" content="Join the Dewllio beta — get early access to the Dewllio home-inventory app on Android and help shape it before launch." />
-    <link rel="canonical" href="https://dewllio.com/testing" />
-    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="How Dewllio keeps your home inventory private and secure — per-account access controls, private file storage, short-lived signed links, no ads, and export or delete anytime." />
+    <link rel="canonical" href="https://dewllio.com/features/security" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="author" content="Dewllio" />
     <meta name="theme-color" content="#0C7C8F" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Dewllio" />
-    <meta property="og:title" content="Join the Dewllio beta" />
-    <meta property="og:description" content="Get early access to Dewllio on Android and help shape it before launch." />
-    <meta property="og:url" content="https://dewllio.com/testing" />
+    <meta property="og:title" content="Private &amp; secure home inventory — Dewllio" />
+    <meta property="og:description" content="Per-account access controls, private file storage, and short-lived signed links keep your home inventory yours. Never sold, never used for ads." />
+    <meta property="og:url" content="https://dewllio.com/features/security" />
     <meta property="og:image" content="https://dewllio.com/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Dewllio — Know what you own." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Join the Dewllio beta" />
-    <meta name="twitter:description" content="Get early access to Dewllio on Android and help shape it before launch." />
+    <meta name="twitter:title" content="Private &amp; secure home inventory — Dewllio" />
+    <meta name="twitter:description" content="Per-account access controls, private file storage, and short-lived signed links keep your home inventory yours. Never sold, never used for ads." />
     <meta name="twitter:image" content="https://dewllio.com/og.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is my home-inventory data private and secure?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Your records are protected with per-account access controls, private file storage, and short-lived signed links. Dewllio never sells your data or uses it for advertising — and you can export or permanently delete everything at any time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Dewllio sell my data or use it for advertising?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Dewllio does not sell your data and does not run ads or use your inventory, receipts, or notes to target advertising. Your records exist to help you, not to be monetized by third parties."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I export or delete my Dewllio data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can export your inventory to CSV at any time, and you can permanently delete your account — which removes your records, stored files, and account from Dewllio's systems."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div class="progress" id="progress"></div>
@@ -207,7 +247,7 @@
           <a href="/features">Features</a>
           <a href="/how-it-works">How it works</a>
           <a href="/support">Support</a>
-          <a class="nav-cta" href="#join">Join the beta</a>
+          <a class="nav-cta" href="/testing">Join the beta</a>
         </nav>
       </div>
     </header>
@@ -219,85 +259,134 @@
         </div>
         <div class="wrap">
           <div class="hero-inner">
-            <span class="eyebrow rise d1"><span class="dot"></span> Android beta · invite only</span>
-            <h1 class="title rise d2">Join the Dewllio beta</h1>
+            <span class="eyebrow rise d1"><span class="dot"></span> Private &amp; secure</span>
+            <h1 class="title rise d2">Your home, kept private</h1>
             <p class="lede rise d3">
-              Dewllio is in private testing on Android. Get in early, try every feature before
-              launch, and help shape the app with your feedback.
+              Your records are yours alone — never sold, never used for ads.
             </p>
           </div>
         </div>
       </section>
 
       <div class="container wrap">
-        <!-- Join card -->
-        <section class="join reveal" data-d="1" id="join" aria-label="Join the Android beta">
-          <span class="badge" aria-hidden="true">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-              <path d="M12 3.5 5 6.3V11c0 4.6 3 7.9 7 9.5 4-1.6 7-4.9 7-9.5V6.3z" stroke="#0C7C8F" stroke-width="1.7" stroke-linejoin="round" />
-              <path d="m9.2 12 2 2 3.6-3.8" stroke="#C0801C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </span>
-          <h2>Get the Android beta</h2>
+        <!-- Answer box -->
+        <div class="answer-box reveal">
+          <span class="ql">Quick answer</span>
           <p>
-            Once we've added your Google account to the tester list, tap below on your Android phone
-            to opt in and install Dewllio from Google Play.
+            Yes. Your records are protected with per-account access controls, private file
+            storage, and short-lived signed links. Dewllio never sells your data or uses it
+            for advertising — and you can export or permanently delete everything at any time.
           </p>
-          <a class="btn" href="https://play.google.com/apps/internaltest/4701134459958489919" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 3.3v17.4l9.4-8.7z" fill="#fff" opacity="0.95" />
-              <path d="M16.5 9.3 5.6 3.1 14 11z" fill="#fff" opacity="0.8" />
-              <path d="M16.5 14.7 14 13l-8.4 7.9z" fill="#fff" opacity="0.85" />
-              <path d="M20 12c0 .7-.4 1.3-1 1.6l-2.5 1.1L14 12l2.5-2.7L19 10.4c.6.3 1 .9 1 1.6z" fill="#fff" />
-            </svg>
-            Become a tester on Google Play
-          </a>
-          <p class="os">Not on the list yet? Request access below — it only takes a reply.</p>
+        </div>
+
+        <!-- 1. Per-account access controls -->
+        <section class="reveal" data-d="1" aria-label="Per-account access controls">
+          <div class="sec-head">
+            <span class="kicker">Access controls</span>
+            <h2>Only your account can see your home</h2>
+          </div>
+          <div class="prose">
+            <p>
+              Dewllio is built so that your inventory belongs to your account and nobody
+              else's. Every item, warranty, receipt, document, and maintenance reminder is
+              tied to your user, and access is enforced at the database level — not just hidden
+              in the app. In practice that means another person's request can't read or change
+              your records, even if they're using Dewllio too.
+            </p>
+            <p>
+              You sign in with your own credentials, and Dewllio never stores your raw password —
+              authentication is handled by a dedicated, industry-standard system that keeps
+              your session on your device. There's no shared feed, no public profile, and no
+              way for other users to stumble onto what you own.
+            </p>
+          </div>
         </section>
 
-        <!-- How to join -->
-        <section class="reveal" data-d="2" aria-label="How to join">
+        <!-- 2. Private storage & short-lived signed links -->
+        <section class="reveal" data-d="2" aria-label="Private storage and signed links">
           <div class="sec-head">
-            <span class="kicker">3 steps</span>
-            <h2>How to join</h2>
+            <span class="kicker">Private storage</span>
+            <h2>Receipts and documents stay locked down</h2>
           </div>
-          <div class="jsteps">
-            <div class="jstep">
-              <span class="n">1</span>
-              <div>
-                <h3>Request access</h3>
-                <p>
-                  Email <a href="mailto:support@querywing.com?subject=Dewllio%20Android%20beta%20access">support@querywing.com</a>
-                  and tell us the <b>Google account email</b> on your Android phone. We'll add you to
-                  the tester list (usually the same day).
-                </p>
-              </div>
-            </div>
-            <div class="jstep">
-              <span class="n">2</span>
-              <div>
-                <h3>Opt in</h3>
-                <p>
-                  On your phone (signed into that same Google account), tap
-                  <b>Become a tester</b> above and accept. Give it a minute to register.
-                </p>
-              </div>
-            </div>
-            <div class="jstep">
-              <span class="n">3</span>
-              <div>
-                <h3>Install &amp; explore</h3>
-                <p>
-                  Open Dewllio on <b>Google Play</b> and install. Add a few items, set a warranty
-                  reminder, and tell us what you think — you're in! 🎉
-                </p>
-              </div>
-            </div>
+          <div class="prose">
+            <p>
+              The photos, receipts, and warranty documents you save live in private storage —
+              not a public folder with a guessable web address. When the app needs to show you
+              a file, it requests a <strong>short-lived signed link</strong> that works only for
+              you and expires shortly after. Old links stop working, so a URL that leaks can't
+              be reused to reach your files later.
+            </p>
+            <p>
+              That's the difference between "private by default" and "hidden but reachable."
+              Your sensitive paperwork — serial numbers, purchase records, home documents —
+              isn't sitting behind a link anyone could open.
+            </p>
           </div>
+        </section>
 
+        <!-- 3. No ads, never sold -->
+        <section class="reveal" data-d="3" aria-label="No ads, never sold">
+          <div class="sec-head">
+            <span class="kicker">No ads, never sold</span>
+            <h2>Your inventory isn't the product</h2>
+          </div>
+          <div class="prose">
+            <p>
+              Dewllio makes money from an optional <strong>Premium subscription</strong>, not from
+              your data. We don't sell your inventory, receipts, or notes to anyone, and we don't
+              use them to build an advertising profile or serve you ads. There are no trackers
+              quietly turning what you own into a marketing signal.
+            </p>
+            <p>
+              This is a deliberate choice, not a loophole. A home inventory is a map of your
+              life — what you own, what it cost, where it lives — and that map should work for
+              you alone. If you're weighing free versus Premium, you can compare everything on the
+              <a href="/features">features overview</a>; either way, the privacy model is the same.
+            </p>
+          </div>
+        </section>
+
+        <!-- 4. You stay in control -->
+        <section class="reveal" data-d="1" aria-label="You stay in control">
+          <div class="sec-head">
+            <span class="kicker">You stay in control</span>
+            <h2>Export it, or erase it — your call</h2>
+          </div>
+          <div class="prose">
+            <p>
+              Privacy isn't just about who's kept out; it's about you being able to leave on your
+              own terms. Dewllio lets you <a href="/features/export">export your inventory to CSV</a>
+              whenever you want, so your data is never trapped inside the app — take it to a
+              spreadsheet, a backup, or your insurer.
+            </p>
+            <p>
+              And when you're done, you're done. From <a href="/delete-account">delete account</a>
+              you can permanently remove everything — your records, the files in storage, and your
+              account itself — through a verified, server-side process rather than a soft "hide."
+              For the full picture of what we collect and how we handle it, read the
+              <a href="/privacy">Privacy Policy</a>.
+            </p>
+          </div>
           <div class="note">
-            <b>Note:</b> the beta is invite-only, so the button only works once your email is on the
-            tester list. iOS testing (TestFlight) is coming soon — email us to be first in line.
+            <b>In short:</b> access is scoped to your account, files are private with expiring
+            links, nothing is sold or advertised against, and you can export or delete it all at any time.
+          </div>
+        </section>
+
+        <!-- Related -->
+        <section class="reveal" data-d="2" aria-label="Explore more">
+          <div class="sec-head">
+            <span class="kicker">Explore more</span>
+            <h2>Related pages</h2>
+          </div>
+          <div class="related-links">
+            <a class="rl" href="/features/export"><span>CSV export</span><span class="arw" aria-hidden="true">&rarr;</span></a>
+            <a class="rl" href="/privacy"><span>Privacy Policy</span><span class="arw" aria-hidden="true">&rarr;</span></a>
+            <a class="rl" href="/delete-account"><span>Delete account</span><span class="arw" aria-hidden="true">&rarr;</span></a>
+            <a class="rl" href="/features"><span>All features</span><span class="arw" aria-hidden="true">&rarr;</span></a>
+          </div>
+          <div class="related-cta">
+            <a class="btn" href="/testing">Join the Android beta</a>
           </div>
         </section>
       </div>
