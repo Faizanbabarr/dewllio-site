@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dewllio — Email confirmed</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0C7C8F" />
+    <style>
+      :root {
+        --teal: #0c7c8f;
+        --teal-grad: linear-gradient(135deg, #0fa0af, #075e6e);
+        --cream: #f5f1e9;
+        --card: #ffffff;
+        --ink: #1b1712;
+        --muted: #5c544a;
+        --green: #1f9d5a;
+        --danger: #b3261e;
+        --hairline: rgba(27, 23, 18, 0.08);
+        --shadow: 0 24px 60px -28px rgba(7, 94, 110, 0.45);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background: radial-gradient(120% 80% at 50% -10%, #e7f4f2 0%, var(--cream) 60%);
+        color: var(--ink);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+      .card {
+        width: 100%;
+        max-width: 460px;
+        background: var(--card);
+        border: 1px solid var(--hairline);
+        border-radius: 26px;
+        box-shadow: var(--shadow);
+        padding: 40px 30px 34px;
+        text-align: center;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-weight: 800;
+        font-size: 1.05rem;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        margin-bottom: 26px;
+      }
+      .brand .logo {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 11px;
+        background: var(--teal-grad);
+      }
+      .badge {
+        width: 82px;
+        height: 82px;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        display: grid;
+        place-items: center;
+        background: rgba(31, 157, 90, 0.12);
+      }
+      .badge.err {
+        background: rgba(179, 38, 30, 0.1);
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 1.6rem;
+        letter-spacing: -0.02em;
+      }
+      p {
+        margin: 0 auto 8px;
+        color: var(--muted);
+        max-width: 36ch;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 22px;
+        padding: 15px 30px;
+        border-radius: 999px;
+        background: var(--teal-grad);
+        color: #fff;
+        font-weight: 700;
+        font-size: 1rem;
+        text-decoration: none;
+        box-shadow: 0 16px 30px -16px rgba(12, 124, 143, 0.7);
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .hint {
+        margin-top: 16px;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+      .foot {
+        margin-top: 26px;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .foot a {
+        color: var(--teal);
+        text-decoration: none;
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card" role="status" aria-live="polite">
+      <span class="brand">
+        <span class="logo" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" role="img">
+            <path d="M3 11.2 12 4l9 7.2V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="#fff" />
+          </svg>
+        </span>
+        Dewllio
+      </span>
+
+      <!-- SUCCESS -->
+      <div id="ok">
+        <div class="badge" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+            <path
+              d="m5 12.5 4.2 4.2L19 7"
+              stroke="#1f9d5a"
+              stroke-width="2.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <h1 id="ok-title">Email confirmed 🎉</h1>
+        <p id="ok-msg">Your email is verified. Open Dewllio and sign in to get started.</p>
+        <a class="btn" id="open-app" href="#">Open Dewllio</a>
+        <p class="hint">
+          Didn’t open? Just open the Dewllio app on your phone and sign in — you’re all set.
+        </p>
+      </div>
+
+      <!-- ERROR -->
+      <div id="err" hidden>
+        <div class="badge err" aria-hidden="true">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none">
+            <path d="M12 7.5v5.5" stroke="#b3261e" stroke-width="2.4" stroke-linecap="round" />
+            <circle cx="12" cy="16.6" r="1.3" fill="#b3261e" />
+          </svg>
+        </div>
+        <h1>This link didn’t work</h1>
+        <p id="err-msg">The confirmation link is invalid or has expired.</p>
+        <p class="hint">Open the Dewllio app and tap “Resend confirmation” to get a fresh link.</p>
+      </div>
+
+      <div class="foot">Need a hand? <a href="/support">Contact support</a></div>
+    </main>
+
+    <script>
+      (function () {
+        var hash = location.hash && location.hash.charAt(0) === '#' ? location.hash.slice(1) : '';
+        var hp = new URLSearchParams(hash);
+        var qp = new URLSearchParams(location.search);
+
+        var errText =
+          hp.get('error_description') ||
+          qp.get('error_description') ||
+          hp.get('error') ||
+          qp.get('error');
+        var type = hp.get('type') || qp.get('type') || '';
+        var recovery = type === 'recovery';
+
+        if (errText) {
+          document.getElementById('ok').hidden = true;
+          var e = document.getElementById('err');
+          e.hidden = false;
+          document.getElementById('err-msg').textContent =
+            String(errText).replace(/\+/g, ' ') + '.';
+          return;
+        }
+
+        // Tailor copy for password recovery vs. sign-up confirmation.
+        if (recovery) {
+          document.getElementById('ok-title').textContent = 'Email verified';
+          document.getElementById('ok-msg').textContent = 'Open Dewllio to set your new password.';
+        }
+
+        // Hand off to the app: forward whatever payload we received to the app's
+        // deep link so it can complete the session. (Custom-scheme launch from a
+        // real tap is far more reliable than a server redirect.)
+        var appBase = recovery ? 'dewllio://auth/reset' : 'dewllio://auth/callback';
+        var payload = location.hash || (location.search ? location.search : '');
+        var appLink = appBase + payload;
+        document.getElementById('open-app').setAttribute('href', appLink);
+
+        // Best-effort auto-open on mobile (the button remains as the fallback).
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          setTimeout(function () {
+            try {
+              window.location.href = appLink;
+            } catch (e) {}
+          }, 600);
+        }
+      })();
+    </script>
+  </body>
+</html>
